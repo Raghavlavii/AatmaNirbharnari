@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Search, MapPin, Filter, Star, ChevronRight } from "lucide-react";
+import { Search, MapPin, Filter, Star, ChevronRight, ChevronDown } from "lucide-react";
 
 interface Business {
   _id: string;
@@ -137,14 +137,15 @@ export default function BusinessesPage() {
             />
           </div>
           <div className="w-full lg:w-64 relative">
-            <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none z-10" />
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all appearance-none cursor-pointer text-gray-900"
+              className="w-full pl-12 pr-10 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all appearance-none cursor-pointer text-gray-900"
             >
               {categories.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
           </div>
         </div>
 
