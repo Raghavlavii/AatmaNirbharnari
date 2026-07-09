@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const connectDB = require("./src/config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const businessRoutes = require("./routes/businessRoutes");
@@ -18,6 +19,17 @@ app.use(
   })
 );
 app.use(express.json());
+
+// ─── DB Connection Middleware (ensures connection before every request) ───
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("DB connection failed:", error.message);
+    res.status(503).json({ message: "Service temporarily unavailable" });
+  }
+});
 
 // Routes
 app.use("/api/auth", authRoutes);
