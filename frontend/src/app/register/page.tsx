@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { User, Mail, Lock, Sparkles, ArrowRight, Shield } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ export default function RegisterPage() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/register",
+        `${API_BASE_URL}/api/auth/register`,
         {
           method: "POST",
           headers: {

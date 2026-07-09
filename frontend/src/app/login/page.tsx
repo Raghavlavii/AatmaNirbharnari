@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Mail, Lock, ArrowRight, Sparkles } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ export default function LoginPage() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/login",
+        `${API_BASE_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {

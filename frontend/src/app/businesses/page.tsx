@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Search, MapPin, Filter, Star, ChevronRight, ChevronDown } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 interface Business {
   _id: string;
@@ -49,7 +50,7 @@ export default function BusinessesPage() {
         ];
         
         try {
-          const response = await fetch(`http://localhost:5000/api/business?search=${search}&category=${category}&location=${location}`);
+          const response = await fetch(`${API_BASE_URL}/api/business?search=${search}&category=${category}&location=${location}`);
           const data = await response.json();
           if (data.success && data.businesses.length > 0) {
             setBusinesses(data.businesses);

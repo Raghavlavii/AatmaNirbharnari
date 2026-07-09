@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Store, MapPin, Phone, Mail, Globe, CheckCircle, ChevronRight, ChevronLeft, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import clsx from "clsx";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function AddBusinessPage() {
   const [step, setStep] = useState(1);
@@ -42,7 +43,7 @@ export default function AddBusinessPage() {
       await new Promise(r => setTimeout(r, 1500));
       
       const token = localStorage.getItem("token") || "mock-token";
-      const response = await fetch("http://localhost:5000/api/business", {
+      const response = await fetch(`${API_BASE_URL}/api/business`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
