@@ -33,7 +33,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable} h-full antialiased`}
     >
-    <body>
+    <body className="bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-rose-50 via-slate-50 to-orange-50 min-h-screen">
   <Navbar />
   <main className="pt-24">
     {children}

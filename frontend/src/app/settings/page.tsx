@@ -41,7 +41,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50/50">
+    <div className="flex h-screen relative z-0">
       <Sidebar />
       
       <main className="flex-1 overflow-y-auto">

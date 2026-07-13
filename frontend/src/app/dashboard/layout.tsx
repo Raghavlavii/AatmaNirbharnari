@@ -7,7 +7,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex bg-gray-50/50 min-h-[calc(100vh-73px)] relative z-0">
+    <div className="flex min-h-[calc(100vh-73px)] relative z-0">
       <Sidebar role="entrepreneur" />
       <div className="flex-1 overflow-x-hidden">
         {children}
