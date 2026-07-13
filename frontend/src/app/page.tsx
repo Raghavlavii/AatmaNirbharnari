@@ -27,10 +27,29 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-white">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-rose-50 via-orange-50/30 to-white -z-10" />
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-rose-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob" />
-      <div className="absolute top-40 -left-40 w-96 h-96 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000" />
+      {/* Background Decor - Removed opaque layers so global Layout Doodles show through, and added Home Page specific Doodles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        {/* Big Sparkle */}
+        <svg className="absolute top-[10%] left-[5%] w-16 h-16 text-brand-pink/50 animate-float" style={{ animationDelay: "0.5s" }} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+        {/* Floating Heart */}
+        <svg className="absolute top-[20%] right-[10%] w-14 h-14 text-brand-coral/60 animate-float" style={{ animationDelay: "1.5s" }} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        {/* Star */}
+        <svg className="absolute top-[50%] left-[8%] w-10 h-10 text-brand-peach/80 animate-float" style={{ animationDelay: "2.5s" }} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+        </svg>
+        {/* Little Sparkle */}
+        <svg className="absolute top-[60%] right-[5%] w-12 h-12 text-brand-pink/60 animate-float" style={{ animationDelay: "3.5s" }} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+        </svg>
+        {/* Another Heart */}
+        <svg className="absolute bottom-[10%] left-[20%] w-12 h-12 text-brand-coral/50 animate-float" style={{ animationDelay: "0.2s" }} viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 pt-32 pb-24 flex flex-col items-center text-center">
