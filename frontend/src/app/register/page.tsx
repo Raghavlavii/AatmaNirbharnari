@@ -48,6 +48,7 @@ export default function RegisterPage() {
       if (data.success) {
         setMessage("✅ Registration Successful!");
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
         window.location.href = "/dashboard";
       } else {
         setMessage(data.message || "Registration Failed");

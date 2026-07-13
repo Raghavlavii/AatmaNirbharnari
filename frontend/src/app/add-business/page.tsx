@@ -39,10 +39,13 @@ export default function AddBusinessPage() {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call for the frontend demo
-      await new Promise(r => setTimeout(r, 1500));
-      
-      const token = localStorage.getItem("token") || "mock-token";
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please log in first to add a business.");
+        window.location.href = "/login";
+        return;
+      }
+
       const response = await fetch(`${API_BASE_URL}/api/business`, {
         method: "POST",
         headers: {
@@ -52,11 +55,15 @@ export default function AddBusinessPage() {
         body: JSON.stringify(formData),
       });
 
-      // We won't strictly enforce response.ok for this UI demo if backend is down
-      setIsSuccess(true);
+      const data = await response.json();
+      if (response.ok && data.success) {
+        setIsSuccess(true);
+      } else {
+        alert(data.message || "Failed to create business");
+      }
     } catch (error) {
       console.error(error);
-      setIsSuccess(true); // Proceed to success screen for demo purposes even if backend fails
+      alert("Failed to connect to server");
     } finally {
       setIsSubmitting(false);
     }

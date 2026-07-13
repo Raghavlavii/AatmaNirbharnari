@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { 
   TrendingUp, 
@@ -12,21 +14,59 @@ import {
   Activity,
   Heart
 } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function DashboardPage() {
+  const [user, setUser] = useState<any>(null);
+  const [businesses, setBusinesses] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        window.location.href = "/login";
+        return;
+      }
+      
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/business`);
+        const data = await response.json();
+        if (data.success) {
+          // Filter businesses to only show ones owned by the logged in user
+          const myBusinesses = data.businesses.filter(
+            (b: any) => b.owner?._id === parsedUser.id || b.owner === parsedUser.id
+          );
+          setBusinesses(myBusinesses);
+        }
+      } catch (error) {
+        console.error("Failed to fetch businesses", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
   const stats = [
-    { name: "Total Revenue", value: "₹45,231", change: "+20.1%", icon: TrendingUp, color: "text-purple-600", bg: "bg-purple-100" },
-    { name: "Active Customers", value: "2,314", change: "+15.3%", icon: Users, color: "text-pink-500", bg: "bg-pink-100" },
-    { name: "Products Listed", value: "124", change: "+4.1%", icon: ShoppingBag, color: "text-purple-600", bg: "bg-purple-100" },
-    { name: "Unread Messages", value: "12", change: "-2%", icon: MessageSquare, color: "text-pink-500", bg: "bg-pink-100" },
+    { name: "Total Revenue", value: "₹0", change: "+0%", icon: TrendingUp, color: "text-purple-600", bg: "bg-purple-100" },
+    { name: "Active Customers", value: "0", change: "+0%", icon: Users, color: "text-pink-500", bg: "bg-pink-100" },
+    { name: "Products Listed", value: businesses.length.toString(), change: businesses.length > 0 ? "+100%" : "0%", icon: ShoppingBag, color: "text-purple-600", bg: "bg-purple-100" },
+    { name: "Unread Messages", value: "0", change: "0%", icon: MessageSquare, color: "text-pink-500", bg: "bg-pink-100" },
   ];
 
   const recentOrders = [
-    { id: "ORD-001", customer: "Priya Sharma", product: "Handcrafted Jhumkas", amount: "₹450", status: "Completed" },
-    { id: "ORD-002", customer: "Anjali Gupta", product: "Organic Cotton Saree", amount: "₹2,100", status: "Processing" },
-    { id: "ORD-003", customer: "Sneha Reddy", product: "Terracotta Pots", amount: "₹850", status: "Pending" },
-    { id: "ORD-004", customer: "Neha Singh", product: "Ayurvedic Skin Care Kit", amount: "₹1,200", status: "Completed" },
+    { id: "ORD-001", customer: "Priya Sharma", product: "Demo Product 1", amount: "₹450", status: "Completed" },
+    { id: "ORD-002", customer: "Anjali Gupta", product: "Demo Product 2", amount: "₹2,100", status: "Processing" },
   ];
+
+  if (isLoading) {
+    return <div className="min-h-screen flex items-center justify-center bg-gray-50/50">Loading Dashboard...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50/50 pb-12">
@@ -36,7 +76,7 @@ export default function DashboardPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between py-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
-              Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-pink-500">Radhika!</span> ✨
+              Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-pink-500">{user?.fullName || "Entrepreneur"}!</span> ✨
             </h1>
             <p className="mt-2 text-sm text-gray-500 font-medium">
               Here is what&apos;s happening with your business today.
