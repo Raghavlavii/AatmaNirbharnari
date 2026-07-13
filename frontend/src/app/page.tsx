@@ -26,7 +26,7 @@ export default function HomePage() {
   ];
 
   return (
-    <main className="min-h-screen relative overflow-hidden bg-white">
+    <main className="min-h-screen relative overflow-hidden bg-transparent">
       {/* Background Decor - Removed opaque layers so global Layout Doodles show through, and added Home Page specific Doodles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
         {/* Big Sparkle */}

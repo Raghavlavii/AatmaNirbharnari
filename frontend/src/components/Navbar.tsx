@@ -35,7 +35,7 @@ export default function Navbar() {
             <FaFemale className="text-white text-lg" />
           </div>
           <span className="text-xl font-extrabold text-gradient tracking-tight">
-            Aatmanirbhar
+            Aatmanirbhar Nari
           </span>
         </Link>
         
