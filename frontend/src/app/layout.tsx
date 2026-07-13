@@ -33,7 +33,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable} h-full antialiased`}
     >
-    <body className="bg-slate-50 min-h-screen relative selection:bg-rose-200 selection:text-rose-900">
+    <body className="bg-slate-50 text-slate-900 min-h-screen relative selection:bg-rose-200 selection:text-rose-900">
       {/* Ambient Background Blobs */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -left-40 w-96 h-96 bg-rose-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-pulse"></div>
