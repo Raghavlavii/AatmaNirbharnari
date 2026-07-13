@@ -19,7 +19,7 @@ export default function Sidebar({ role = "entrepreneur" }: { role?: "entrepreneu
 
   const entrepreneurLinks = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { name: "My Store", href: "/businesses", icon: Store },
+    { name: "Marketplace", href: "/businesses", icon: Store },
     { name: "Orders", href: "/customer", icon: ShoppingBag },
     { name: "Inquiries", href: "/messages", icon: MessageSquare },
     { name: "Guidance Hub", href: "/entrepreneur/guidance", icon: BookOpen },

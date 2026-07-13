@@ -49,7 +49,14 @@ export default function RegisterPage() {
         setMessage("✅ Registration Successful!");
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        window.location.href = "/dashboard";
+        
+        if (data.user.role === "admin") {
+          window.location.href = "/admin";
+        } else if (data.user.role === "customer") {
+          window.location.href = "/businesses";
+        } else {
+          window.location.href = "/dashboard";
+        }
       } else {
         setMessage(data.message || "Registration Failed");
       }
