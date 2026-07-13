@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   Users, 
   Store, 
@@ -10,15 +10,35 @@ import {
   TrendingUp,
   Search
 } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState("pending");
+  const [adminStats, setAdminStats] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/admin/stats`);
+        const data = await response.json();
+        if (data.success) {
+          setAdminStats(data.stats);
+        }
+      } catch (error) {
+        console.error("Failed to fetch admin stats", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
 
   const stats = [
-    { name: "Total Businesses", value: "482", icon: Store, color: "text-purple-600", bg: "bg-purple-100" },
-    { name: "Total Users", value: "2,845", icon: Users, color: "text-pink-500", bg: "bg-pink-100" },
-    { name: "Pending Approvals", value: "18", icon: AlertCircle, color: "text-yellow-600", bg: "bg-yellow-100" },
-    { name: "Monthly Growth", value: "+12.5%", icon: TrendingUp, color: "text-green-600", bg: "bg-green-100" },
+    { name: "Total Businesses", value: adminStats?.totalBusinesses || 0, icon: Store, color: "text-purple-600", bg: "bg-purple-100" },
+    { name: "Total Users", value: adminStats?.totalUsers || 0, icon: Users, color: "text-pink-500", bg: "bg-pink-100" },
+    { name: "Customer Inquiries", value: adminStats?.totalInquiries || 0, icon: AlertCircle, color: "text-yellow-600", bg: "bg-yellow-100" },
+    { name: "Profile Completion Rate", value: `${adminStats?.completionRate || 0}%`, icon: TrendingUp, color: "text-green-600", bg: "bg-green-100" },
   ];
 
   const pendingApprovals = [
@@ -27,6 +47,10 @@ export default function AdminDashboardPage() {
     { id: "BIZ-104", name: "Glow & Go", category: "Beauty", owner: "Simran Kaur", date: "2024-03-14" },
     { id: "BIZ-105", name: "Creative Clay", category: "Handicrafts", owner: "Pooja Patel", date: "2024-03-12" },
   ];
+
+  if (isLoading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
 
   return (
     <div className="pb-12 pt-8">
