@@ -21,6 +21,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "Marketplace", href: "/businesses" },
     { name: "Start Your Business", href: "/add-business" },
+    { name: "Dashboard", href: "/dashboard" },
   ];
 
   return (
