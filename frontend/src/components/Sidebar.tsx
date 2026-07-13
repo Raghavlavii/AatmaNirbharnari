@@ -38,7 +38,7 @@ export default function Sidebar({ role = "entrepreneur" }: { role?: "entrepreneu
   const links = role === "admin" ? adminLinks : entrepreneurLinks;
 
   return (
-    <div className="w-64 bg-white/80 backdrop-blur-xl border-r border-gray-100 min-h-[calc(100vh-73px)] hidden lg:block sticky top-[73px] p-4">
+    <div className="w-64 glass-panel border-r border-gray-100 min-h-[calc(100vh-73px)] hidden lg:block sticky top-[73px] p-4">
       <div className="mb-6 px-3">
         <p className="text-xs font-bold tracking-wider text-gray-400 uppercase">
           {role === "admin" ? "Admin Controls" : "Business Tools"}
