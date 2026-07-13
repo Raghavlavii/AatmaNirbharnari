@@ -10,6 +10,7 @@ import clsx from "clsx";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
@@ -83,12 +84,52 @@ export default function Navbar() {
                 <span className="absolute top-1 right-1 w-2 h-2 bg-brand-pink rounded-full animate-pulse"></span>
               </button>
               <div className="h-8 w-px bg-gray-200 mx-2"></div>
-              <button className="flex items-center gap-2 p-1 pl-2 pr-4 bg-white/50 hover:bg-white/80 border border-gray-100 rounded-full transition-all">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-peach to-brand-coral flex items-center justify-center text-white">
-                  <User className="w-4 h-4" />
-                </div>
-                <span className="text-sm font-semibold text-gray-700">Profile</span>
-              </button>
+              <div className="relative">
+                <button 
+                  onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                  className="flex items-center gap-2 p-1 pl-2 pr-4 bg-white/50 hover:bg-white/80 border border-gray-100 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-brand-pink/20"
+                >
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-peach to-brand-coral flex items-center justify-center text-white">
+                    <User className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm font-semibold text-gray-700">Profile</span>
+                </button>
+                
+                <AnimatePresence>
+                  {profileMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 mt-3 w-56 rounded-2xl glass-panel bg-white/80 border-gray-100 shadow-xl overflow-hidden flex flex-col p-2 z-50"
+                    >
+                      <div className="px-3 py-2 border-b border-gray-100/50 mb-1">
+                        <p className="text-sm font-bold text-gray-900">My Account</p>
+                      </div>
+                      
+                      <Link href="/" className="px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-brand-pink hover:bg-white/60 rounded-xl transition-colors">
+                        Home Page
+                      </Link>
+                      <Link href="/settings" className="px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-brand-pink hover:bg-white/60 rounded-xl transition-colors">
+                        Settings
+                      </Link>
+                      
+                      <div className="h-px bg-gray-100/50 my-1"></div>
+                      
+                      <button 
+                        onClick={() => {
+                          localStorage.removeItem("user");
+                          window.location.href = "/login";
+                        }}
+                        className="px-3 py-2.5 text-sm font-bold text-red-600 hover:bg-red-50 rounded-xl text-left transition-colors"
+                      >
+                        Sign out
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           ) : (
             <div className="hidden lg:flex items-center gap-4">
