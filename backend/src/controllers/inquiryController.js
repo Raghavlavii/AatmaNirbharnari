@@ -1,4 +1,5 @@
 const Message = require("../../models/Message");
+const { sendEmail } = require("../utils/emailService");
 
 // Submit a new inquiry
 exports.submitInquiry = async (req, res) => {
@@ -19,6 +20,27 @@ exports.submitInquiry = async (req, res) => {
     });
 
     await newInquiry.save();
+
+    // Fire-and-forget email alert to the business owner
+    // In a real app, you would fetch the business's actual email from the Business model here
+    const businessEmail = "owner@example.com"; 
+
+    sendEmail({
+      to: businessEmail,
+      subject: `New Inquiry from ${customerName}: ${subject || 'No Subject'}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+          <h2 style="color: #6b21a8;">You have a new inquiry!</h2>
+          <p><strong>From:</strong> ${customerName} (${customerEmail})</p>
+          <p><strong>Category:</strong> ${category}</p>
+          <hr />
+          <p style="white-space: pre-wrap;">${message}</p>
+          <hr />
+          <p>Please reply directly to ${customerEmail} to assist this customer.</p>
+        </div>
+      `
+    });
+
     return res.status(201).json({ success: true, message: "Inquiry sent successfully" });
   } catch (error) {
     console.error("Error submitting inquiry:", error);
