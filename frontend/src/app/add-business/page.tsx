@@ -152,7 +152,7 @@ export default function AddBusinessPage() {
                       required
                       value={formData.businessName}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all text-gray-900"
                       placeholder="e.g. Radhika's Handlooms"
                     />
                   </div>
@@ -178,7 +178,7 @@ export default function AddBusinessPage() {
                       value={formData.description}
                       onChange={handleChange}
                       rows={4}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all resize-none"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all resize-none text-gray-900"
                       placeholder="Describe what you sell or the services you provide..."
                     />
                   </div>
@@ -204,7 +204,7 @@ export default function AddBusinessPage() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all"
+                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all text-gray-900"
                         placeholder="contact@yourbusiness.com"
                       />
                     </div>
@@ -219,7 +219,7 @@ export default function AddBusinessPage() {
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all"
+                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all text-gray-900"
                         placeholder="+91 98765 43210"
                       />
                     </div>
@@ -233,7 +233,7 @@ export default function AddBusinessPage() {
                         name="website"
                         value={formData.website}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all"
+                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all text-gray-900"
                         placeholder="https://www.yourbusiness.com"
                       />
                     </div>
@@ -258,7 +258,7 @@ export default function AddBusinessPage() {
                       required
                       value={formData.location}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all text-gray-900"
                       placeholder="e.g. Bandra, Mumbai"
                     />
                   </div>
