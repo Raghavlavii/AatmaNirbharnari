@@ -12,9 +12,30 @@ import {
   PlusCircle,
   Bell,
   Activity,
-  Heart
+  Heart,
+  CheckCircle2,
+  Circle,
+  MoreVertical
 } from "lucide-react";
 import { API_BASE_URL } from "@/lib/api";
+import { 
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  LineChart, Line
+} from "recharts";
+import clsx from "clsx";
+
+const growthData = [
+  { name: 'Jan', revenue: 1200, target: 1000 },
+  { name: 'Feb', revenue: 2100, target: 1500 },
+  { name: 'Mar', revenue: 1800, target: 2000 },
+  { name: 'Apr', revenue: 3200, target: 2500 },
+  { name: 'May', revenue: 2800, target: 3000 },
+  { name: 'Jun', revenue: 4100, target: 3500 },
+];
+
+const sparklineData = [
+  { value: 10 }, { value: 15 }, { value: 8 }, { value: 20 }, { value: 18 }, { value: 25 }
+];
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
@@ -53,42 +74,41 @@ export default function DashboardPage() {
   }, []);
 
   const stats = [
-    { name: "Total Revenue", value: "₹0", change: "+0%", icon: TrendingUp, color: "text-rose-600", bg: "bg-rose-100" },
-    { name: "Active Customers", value: "0", change: "+0%", icon: Users, color: "text-orange-500", bg: "bg-orange-100" },
-    { name: "Products Listed", value: businesses.length.toString(), change: businesses.length > 0 ? "+100%" : "0%", icon: ShoppingBag, color: "text-rose-600", bg: "bg-rose-100" },
-    { name: "Unread Messages", value: "0", change: "0%", icon: MessageSquare, color: "text-orange-500", bg: "bg-orange-100" },
+    { name: "Total Revenue", value: "₹24,500", change: "+12.5%", icon: TrendingUp, color: "text-brand-pink", bg: "bg-brand-pink/10" },
+    { name: "Active Customers", value: "128", change: "+4.2%", icon: Users, color: "text-brand-coral", bg: "bg-brand-coral/10" },
+    { name: "Products Listed", value: businesses.length.toString(), change: businesses.length > 0 ? "+100%" : "0%", icon: ShoppingBag, color: "text-brand-pink", bg: "bg-brand-pink/10" },
+    { name: "Unread Messages", value: "5", change: "-2%", icon: MessageSquare, color: "text-brand-coral", bg: "bg-brand-coral/10" },
   ];
 
   const recentOrders = [
-    { id: "ORD-001", customer: "Priya Sharma", product: "Demo Product 1", amount: "₹450", status: "Completed" },
-    { id: "ORD-002", customer: "Anjali Gupta", product: "Demo Product 2", amount: "₹2,100", status: "Processing" },
+    { id: "ORD-001", customer: "Priya Sharma", product: "Handcrafted Vase", amount: "₹450", status: "Completed", date: "Today, 10:23 AM" },
+    { id: "ORD-002", customer: "Anjali Gupta", product: "Silk Saree", amount: "₹2,100", status: "Processing", date: "Today, 09:15 AM" },
+    { id: "ORD-003", customer: "Ritu Patel", product: "Organic Spices Set", amount: "₹850", status: "Pending", date: "Yesterday, 04:30 PM" },
+    { id: "ORD-004", customer: "Sneha Reddy", product: "Terracotta Lamps", amount: "₹1,200", status: "Completed", date: "Yesterday, 11:00 AM" },
   ];
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-gray-50/50">Loading Dashboard...</div>;
+    return <div className="min-h-screen flex items-center justify-center">Loading Dashboard...</div>;
   }
 
   return (
-    <div className="min-h-screen bg-gray-50/50 pb-12">
+    <div className="pb-12 mt-6 lg:mt-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between py-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between py-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
-              Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-700 to-orange-500">{user?.fullName || "Entrepreneur"}!</span> ✨
+            <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
+              Welcome back, <span className="text-gradient">{user?.fullName || "Entrepreneur"}</span> 👋
             </h1>
-            <p className="mt-2 text-sm text-gray-500 font-medium">
-              Here is what&apos;s happening with your business today.
+            <p className="mt-2 text-base text-gray-500 font-medium max-w-xl">
+              Here's an overview of your business performance today. You have <span className="text-brand-pink font-semibold">3 new orders</span> to process.
             </p>
           </div>
-          <div className="mt-4 md:mt-0 flex space-x-3">
-            <button className="inline-flex items-center justify-center p-2 rounded-full bg-white border border-gray-200 text-gray-500 hover:text-rose-700 hover:bg-rose-50 transition-colors shadow-sm">
-              <Bell className="h-5 w-5" />
-            </button>
+          <div className="flex space-x-3">
             <Link
               href="/add-business"
-              className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 transition-all hover:shadow-md"
+              className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl shadow-lg shadow-brand-pink/20 text-sm font-bold text-white bg-gradient-to-r from-brand-pink to-brand-coral hover:scale-105 transition-all duration-300"
             >
               <PlusCircle className="h-4 w-4 mr-2" />
               Add Product
@@ -97,116 +117,130 @@ export default function DashboardPage() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
-          {stats.map((item) => (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+          {stats.map((item, idx) => (
             <div
               key={item.name}
-              className="relative glass-panel pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-white/60 rounded-2xl overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300"
+              className="relative glass-panel p-6 group cursor-default overflow-hidden"
             >
-              <dt>
-                <div className={`absolute rounded-xl p-3 ${item.bg}`}>
-                  <item.icon className={`h-6 w-6 ${item.color}`} aria-hidden="true" />
+              <div className="flex justify-between items-start mb-4">
+                <div className={`p-3 rounded-2xl ${item.bg}`}>
+                  <item.icon className={`h-6 w-6 ${item.color}`} />
                 </div>
-                <p className="ml-16 text-sm font-medium text-gray-500 truncate">{item.name}</p>
-              </dt>
-              <dd className="ml-16 pb-6 flex items-baseline sm:pb-7">
-                <p className="text-2xl font-semibold text-gray-900">{item.value}</p>
-                <p
-                  className={`ml-2 flex items-baseline text-sm font-semibold ${
-                    item.change.startsWith("+") ? "text-green-600" : "text-red-600"
-                  }`}
+                <span
+                  className={clsx(
+                    "text-xs font-bold px-2 py-1 rounded-lg flex items-center gap-1",
+                    item.change.startsWith("+") ? "text-green-600 bg-green-50" : "text-red-600 bg-red-50"
+                  )}
                 >
+                  {item.change.startsWith("+") ? <TrendingUp className="w-3 h-3" /> : null}
                   {item.change}
-                </p>
-                <div className="absolute bottom-0 inset-x-0 bg-white/40 backdrop-blur-md border-t border-white/60 px-4 py-4 sm:px-6">
-                  <div className="text-sm">
-                    <a href="#" className="font-medium text-rose-600 hover:text-rose-500 flex items-center">
-                      View all <ArrowRight className="ml-1 h-4 w-4" />
-                    </a>
-                  </div>
-                </div>
-              </dd>
+                </span>
+              </div>
+              <p className="text-sm font-semibold text-gray-500 mb-1">{item.name}</p>
+              <h3 className="text-3xl font-extrabold text-gray-900">{item.value}</h3>
+              
+              {/* Sparkline Background */}
+              <div className="absolute bottom-0 left-0 right-0 h-16 opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={sparklineData}>
+                    <Line type="monotone" dataKey="value" stroke={idx % 2 === 0 ? "#C83E6D" : "#FF7A59"} strokeWidth={3} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Main Content Area */}
+        {/* Charts and Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          {/* Recent Orders Section */}
+          {/* Main Chart Area */}
           <div className="lg:col-span-2 space-y-8">
             
-            {/* Business Setup Checklist */}
-            <div className="glass-panel rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-white/60 p-6">
-              <h3 className="text-lg leading-6 font-semibold text-gray-900 mb-4">
-                Business Setup Checklist
-              </h3>
-              <div className="w-full bg-gray-100 rounded-full h-2.5 mb-4">
-                <div className="bg-gradient-to-r from-rose-600 to-orange-500 h-2.5 rounded-full" style={{ width: "60%" }}></div>
+            {/* Revenue Trend Chart */}
+            <div className="glass-panel p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900">Revenue Growth</h3>
+                  <p className="text-sm text-gray-500 font-medium">Monthly performance vs target</p>
+                </div>
+                <select className="bg-white/50 border border-gray-100 text-sm font-semibold text-gray-600 rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-brand-pink/20">
+                  <option>Last 6 Months</option>
+                  <option>This Year</option>
+                </select>
               </div>
-              <p className="text-sm text-gray-500 mb-6">You are 60% done with your profile setup.</p>
               
-              <ul className="space-y-3">
-                <li className="flex items-center text-sm font-medium text-gray-900">
-                  <div className="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">✓</div>
-                  Register Account
-                </li>
-                <li className="flex items-center text-sm font-medium text-gray-900">
-                  <div className="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">✓</div>
-                  Verify Email
-                </li>
-                <li className="flex items-center text-sm font-medium text-gray-900">
-                  <div className="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">✓</div>
-                  Create Business Profile
-                </li>
-                <li className="flex items-center text-sm font-medium text-gray-500">
-                  <div className="w-6 h-6 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mr-3">4</div>
-                  Upload Product Images
-                  <button className="ml-auto text-rose-600 hover:text-rose-700 font-semibold text-xs">Add Now</button>
-                </li>
-                <li className="flex items-center text-sm font-medium text-gray-500">
-                  <div className="w-6 h-6 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mr-3">5</div>
-                  Set Availability Schedule
-                </li>
-              </ul>
+              <div className="h-[300px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={growthData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#C83E6D" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#C83E6D" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} dy={10} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B7280' }} />
+                    <Tooltip 
+                      contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 40px -10px rgba(0,0,0,0.1)' }}
+                      cursor={{ stroke: '#C83E6D', strokeWidth: 1, strokeDasharray: '5 5' }}
+                    />
+                    <Area type="monotone" dataKey="revenue" stroke="#C83E6D" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
+                    <Line type="monotone" dataKey="target" stroke="#FF7A59" strokeWidth={2} strokeDasharray="5 5" dot={false} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
-            <div className="glass-panel rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-white/60 overflow-hidden">
-              <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
-                <h3 className="text-lg leading-6 font-semibold text-gray-900 flex items-center">
-                  <Activity className="h-5 w-5 mr-2 text-rose-600" />
+            {/* Recent Orders Table */}
+            <div className="glass-panel overflow-hidden">
+              <div className="px-6 py-5 border-b border-gray-100/50 flex items-center justify-between">
+                <h3 className="text-xl font-bold text-gray-900 flex items-center">
                   Recent Orders
                 </h3>
-                <button className="text-sm font-medium text-orange-500 hover:text-orange-600">
-                  View all
+                <button className="text-sm font-bold text-brand-pink hover:text-brand-coral transition-colors">
+                  View all orders
                 </button>
               </div>
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-100">
-                  <thead className="bg-gray-50/50">
+                <table className="min-w-full">
+                  <thead className="bg-gray-50/30">
                     <tr>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Order</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Product</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Amount</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100/50">
                     {recentOrders.map((order) => (
-                      <tr key={order.id} className="hover:bg-gray-50/50 transition-colors">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.customer}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{order.product}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">{order.amount}</td>
+                      <tr key={order.id} className="hover:bg-white/40 transition-colors group">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            order.status === "Completed" ? "bg-green-100 text-green-800"
-                              : order.status === "Processing" ? "bg-rose-100 text-rose-800"
-                              : "bg-yellow-100 text-yellow-800"
-                          }`}>
+                          <div className="text-sm font-bold text-gray-900">{order.id}</div>
+                          <div className="text-xs text-gray-500">{order.customer}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-semibold text-gray-700">{order.product}</div>
+                          <div className="text-xs text-gray-400">{order.date}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-bold">{order.amount}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={clsx(
+                            "px-3 py-1 inline-flex text-xs font-bold rounded-full",
+                            order.status === "Completed" ? "bg-green-100 text-green-700" : 
+                            order.status === "Processing" ? "bg-blue-100 text-blue-700" : 
+                            "bg-orange-100 text-orange-700"
+                          )}>
                             {order.status}
                           </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <button className="text-gray-400 hover:text-brand-pink transition-colors">
+                            <MoreVertical className="w-5 h-5 inline" />
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -216,44 +250,78 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Quick Actions & Store Status */}
+          {/* Right Sidebar Area */}
           <div className="space-y-8">
             
-            {/* Quick Links */}
-            <div className="glass-panel rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-white/60 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+            {/* Task Checklist Widget */}
+            <div className="glass-panel p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-bold text-gray-900">Today's Tasks</h3>
+                <span className="bg-brand-pink/10 text-brand-pink text-xs font-bold px-2.5 py-1 rounded-full">3 Left</span>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-3 group cursor-pointer">
+                  <CheckCircle2 className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm font-semibold text-gray-400 line-through">Review inventory stock</p>
+                    <p className="text-xs text-gray-400">Completed at 09:30 AM</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3 group cursor-pointer bg-white/40 p-3 -mx-3 rounded-xl transition-colors">
+                  <Circle className="w-5 h-5 text-gray-300 mt-0.5 flex-shrink-0 group-hover:text-brand-pink transition-colors" />
+                  <div>
+                    <p className="text-sm font-bold text-gray-900">Package Order #ORD-002</p>
+                    <p className="text-xs text-brand-coral font-medium mt-1">Due in 2 hours</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 group cursor-pointer hover:bg-white/40 p-3 -mx-3 rounded-xl transition-colors">
+                  <Circle className="w-5 h-5 text-gray-300 mt-0.5 flex-shrink-0 group-hover:text-brand-pink transition-colors" />
+                  <div>
+                    <p className="text-sm font-bold text-gray-900">Update product descriptions</p>
+                    <p className="text-xs text-gray-500 mt-1">Marketplace optimization</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3 group cursor-pointer hover:bg-white/40 p-3 -mx-3 rounded-xl transition-colors">
+                  <Circle className="w-5 h-5 text-gray-300 mt-0.5 flex-shrink-0 group-hover:text-brand-pink transition-colors" />
+                  <div>
+                    <p className="text-sm font-bold text-gray-900">Reply to customer inquiries</p>
+                    <p className="text-xs text-gray-500 mt-1">5 unread messages</p>
+                  </div>
+                </div>
+              </div>
+              
+              <button className="w-full mt-6 py-2.5 border-2 border-dashed border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-brand-pink hover:border-brand-pink/30 hover:bg-brand-pink/5 transition-all flex items-center justify-center gap-2">
+                <PlusCircle className="w-4 h-4" /> Add Task
+              </button>
+            </div>
+
+            {/* Quick Actions Widget */}
+            <div className="glass-panel p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
               <div className="space-y-3">
-                <Link href="/businesses" className="group flex items-center p-3 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50 transition-all">
-                  <div className="bg-rose-100 p-2 rounded-lg group-hover:bg-rose-200 transition-colors">
-                    <Store className="h-5 w-5 text-rose-700" />
+                <Link href="/businesses" className="group flex items-center p-3 rounded-2xl bg-white/40 hover:bg-white/70 transition-all border border-transparent hover:border-brand-pink/20 shadow-sm">
+                  <div className="bg-brand-pink/10 p-2.5 rounded-xl group-hover:scale-110 transition-transform">
+                    <Store className="h-5 w-5 text-brand-pink" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-900">My Storefront</p>
-                    <p className="text-xs text-gray-500">Manage your business profile</p>
+                    <p className="text-sm font-bold text-gray-900">My Storefront</p>
+                    <p className="text-xs text-gray-500 font-medium mt-0.5">Manage your listings</p>
                   </div>
                 </Link>
-                <Link href="/customer" className="group flex items-center p-3 rounded-xl border border-gray-100 hover:border-orange-200 hover:bg-orange-50 transition-all">
-                  <div className="bg-orange-100 p-2 rounded-lg group-hover:bg-orange-200 transition-colors">
-                    <Heart className="h-5 w-5 text-orange-600" />
+                <Link href="/customer" className="group flex items-center p-3 rounded-2xl bg-white/40 hover:bg-white/70 transition-all border border-transparent hover:border-brand-coral/20 shadow-sm">
+                  <div className="bg-brand-coral/10 p-2.5 rounded-xl group-hover:scale-110 transition-transform">
+                    <Heart className="h-5 w-5 text-brand-coral" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-900">Customer Insights</p>
-                    <p className="text-xs text-gray-500">View what your customers love</p>
+                    <p className="text-sm font-bold text-gray-900">Customer Insights</p>
+                    <p className="text-xs text-gray-500 font-medium mt-0.5">View analytics</p>
                   </div>
                 </Link>
               </div>
-            </div>
-
-            {/* Support Box */}
-            <div className="bg-gradient-to-br from-rose-700 to-orange-500 rounded-2xl shadow-sm p-6 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white opacity-10 rounded-full blur-xl"></div>
-              <h3 className="text-lg font-semibold mb-2 relative z-10">Need Help Growing?</h3>
-              <p className="text-sm text-rose-100 mb-4 relative z-10">
-                Join our community of women entrepreneurs and get expert advice on scaling your business.
-              </p>
-              <button className="w-full bg-white text-rose-700 font-medium py-2 px-4 rounded-lg text-sm hover:bg-gray-50 transition-colors relative z-10 shadow-sm">
-                Join Community Forum
-              </button>
             </div>
 
           </div>
