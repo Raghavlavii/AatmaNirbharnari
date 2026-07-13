@@ -41,14 +41,14 @@ export default function Sidebar({ role = "entrepreneur" }: { role?: "entrepreneu
     <div className="w-64 glass-panel border-none min-h-[calc(100vh-32px)] hidden lg:flex flex-col sticky top-4 m-4 p-5 z-40">
       
       {/* Brand Logo inside Sidebar */}
-      <div className="flex items-center gap-3 px-2 mb-8 mt-2">
+      <Link href="/" className="flex items-center gap-3 px-2 mb-8 mt-2 hover:opacity-80 transition-opacity">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-pink to-brand-coral flex items-center justify-center shadow-md">
           <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         </div>
         <span className="text-xl font-extrabold text-gradient tracking-tight">
           Aatmanirbhar
         </span>
-      </div>
+      </Link>
 
       <div className="mb-4 px-2">
         <p className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">

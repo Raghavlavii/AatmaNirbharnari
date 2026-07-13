@@ -29,7 +29,7 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
 
         {/* Brand / Logo (Hidden on Desktop if Sidebar has it, but let's keep it responsive) */}
-        <Link href="/" className="flex items-center gap-3 group lg:hidden">
+        <Link href="/" className={clsx("flex items-center gap-3 group", isLoggedIn ? "lg:hidden" : "")}>
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-pink to-brand-coral flex items-center justify-center shadow-md">
             <FaFemale className="text-white text-lg" />
           </div>
