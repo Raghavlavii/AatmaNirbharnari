@@ -122,7 +122,7 @@ export default function GuidanceContentPage({ params }: { params: { id: string }
 
           <div className="flex items-start justify-between">
             <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">{content.title}</h1>
-            <div className={\`w-12 h-12 rounded-xl flex items-center justify-center \${content.color} hidden sm:flex\`}>
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${content.color} hidden sm:flex`}>
               <Icon className="w-6 h-6" />
             </div>
           </div>
@@ -132,7 +132,7 @@ export default function GuidanceContentPage({ params }: { params: { id: string }
       {/* Content Body */}
       <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="prose prose-purple prose-lg max-w-none text-gray-600">
-          {content.content.split('\\n').map((paragraph: string, index: number) => {
+          {content.content.split('\n').map((paragraph: string, index: number) => {
             if (paragraph.trim() === '') return null;
             if (paragraph.trim().startsWith('## ')) {
               return <h2 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4">{paragraph.replace('## ', '')}</h2>;
@@ -143,12 +143,12 @@ export default function GuidanceContentPage({ params }: { params: { id: string }
             if (paragraph.trim().startsWith('- ')) {
               return (
                 <ul key={index} className="list-disc pl-5 my-2">
-                  <li className="mb-1" dangerouslySetInnerHTML={{ __html: paragraph.replace('- ', '').replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>') }} />
+                  <li className="mb-1" dangerouslySetInnerHTML={{ __html: paragraph.replace('- ', '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                 </ul>
               );
             }
             return (
-              <p key={index} className="mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: paragraph.replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>') }} />
+              <p key={index} className="mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
             );
           })}
         </div>
