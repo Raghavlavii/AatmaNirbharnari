@@ -32,7 +32,7 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
     <div className="min-h-screen bg-gray-50/50 pt-32 pb-24">
       <div className="max-w-5xl mx-auto px-6">
         
-        <Link href="/businesses" className="inline-flex items-center text-gray-500 hover:text-purple-700 font-medium mb-8 transition-colors">
+        <Link href="/businesses" className="inline-flex items-center text-gray-500 hover:text-rose-700 font-medium mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Marketplace
         </Link>
@@ -44,7 +44,7 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
             <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full uppercase tracking-wider mb-4 inline-block">
+                  <span className="px-3 py-1 bg-rose-50 text-rose-700 text-xs font-semibold rounded-full uppercase tracking-wider mb-4 inline-block">
                     {business.category}
                   </span>
                   <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">{business.businessName}</h1>
@@ -56,7 +56,7 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
                 </div>
               </div>
 
-              <div className="prose prose-purple max-w-none">
+              <div className="prose prose-rose max-w-none">
                 <h3 className="text-xl font-bold text-gray-900 mb-3">About the Business</h3>
                 <p className="text-gray-600 leading-relaxed">
                   {business.description}
@@ -68,7 +68,7 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {business.services.map((service, idx) => (
                     <li key={idx} className="flex items-center text-gray-700">
-                      <CheckCircle className="w-5 h-5 text-purple-600 mr-3 flex-shrink-0" />
+                      <CheckCircle className="w-5 h-5 text-rose-600 mr-3 flex-shrink-0" />
                       {service}
                     </li>
                   ))}
@@ -96,35 +96,35 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
               
               <div className="space-y-4 mb-8">
                 <div className="flex items-start">
-                  <MapPin className="w-5 h-5 text-pink-500 mr-4 flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-5 h-5 text-orange-500 mr-4 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-semibold text-gray-900">Location</p>
                     <p className="text-sm text-gray-600">{business.location}</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Phone className="w-5 h-5 text-pink-500 mr-4 flex-shrink-0 mt-0.5" />
+                  <Phone className="w-5 h-5 text-orange-500 mr-4 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-semibold text-gray-900">Phone</p>
                     <p className="text-sm text-gray-600">{business.phone}</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Mail className="w-5 h-5 text-pink-500 mr-4 flex-shrink-0 mt-0.5" />
+                  <Mail className="w-5 h-5 text-orange-500 mr-4 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-semibold text-gray-900">Email</p>
                     <p className="text-sm text-gray-600">{business.email}</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Globe className="w-5 h-5 text-pink-500 mr-4 flex-shrink-0 mt-0.5" />
+                  <Globe className="w-5 h-5 text-orange-500 mr-4 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-semibold text-gray-900">Website</p>
-                    <p className="text-sm text-purple-600 hover:underline cursor-pointer">{business.website}</p>
+                    <p className="text-sm text-rose-600 hover:underline cursor-pointer">{business.website}</p>
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <Clock className="w-5 h-5 text-pink-500 mr-4 flex-shrink-0 mt-0.5" />
+                  <Clock className="w-5 h-5 text-orange-500 mr-4 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-semibold text-gray-900">Availability</p>
                     <p className="text-sm text-gray-600">Mon - Sat, 9:00 AM - 6:00 PM</p>

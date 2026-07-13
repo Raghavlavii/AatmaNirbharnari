@@ -59,25 +59,25 @@ export default function SettingsPage() {
               <nav className="space-y-2">
                 <button
                   onClick={() => setActiveTab("profile")}
-                  className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-colors ${activeTab === 'profile' ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'}`}
+                  className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-colors ${activeTab === 'profile' ? 'bg-rose-100 text-rose-700' : 'text-gray-600 hover:bg-gray-100'}`}
                 >
                   <User className="w-5 h-5 mr-3" /> Profile
                 </button>
                 <button
                   onClick={() => setActiveTab("business")}
-                  className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-colors ${activeTab === 'business' ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'}`}
+                  className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-colors ${activeTab === 'business' ? 'bg-rose-100 text-rose-700' : 'text-gray-600 hover:bg-gray-100'}`}
                 >
                   <Store className="w-5 h-5 mr-3" /> Business Details
                 </button>
                 <button
                   onClick={() => setActiveTab("notifications")}
-                  className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-colors ${activeTab === 'notifications' ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'}`}
+                  className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-colors ${activeTab === 'notifications' ? 'bg-rose-100 text-rose-700' : 'text-gray-600 hover:bg-gray-100'}`}
                 >
                   <Bell className="w-5 h-5 mr-3" /> Notifications
                 </button>
                 <button
                   onClick={() => setActiveTab("security")}
-                  className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-colors ${activeTab === 'security' ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'}`}
+                  className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-colors ${activeTab === 'security' ? 'bg-rose-100 text-rose-700' : 'text-gray-600 hover:bg-gray-100'}`}
                 >
                   <Shield className="w-5 h-5 mr-3" /> Security
                 </button>
@@ -99,7 +99,7 @@ export default function SettingsPage() {
                           type="text" 
                           value={profileData.fullName}
                           onChange={(e) => setProfileData({...profileData, fullName: e.target.value})}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all"
                         />
                       </div>
                       <div>
@@ -108,7 +108,7 @@ export default function SettingsPage() {
                           type="email" 
                           value={profileData.email}
                           onChange={(e) => setProfileData({...profileData, email: e.target.value})}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all"
                         />
                       </div>
                       <div>
@@ -117,7 +117,7 @@ export default function SettingsPage() {
                           type="text" 
                           value={profileData.phone}
                           onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all"
                         />
                       </div>
                     </div>
@@ -135,7 +135,7 @@ export default function SettingsPage() {
                           type="text" 
                           value={businessData.businessName}
                           onChange={(e) => setBusinessData({...businessData, businessName: e.target.value})}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all"
                         />
                       </div>
                       <div>
@@ -143,7 +143,7 @@ export default function SettingsPage() {
                         <select 
                           value={businessData.category}
                           onChange={(e) => setBusinessData({...businessData, category: e.target.value})}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-white"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all bg-white"
                         >
                           <option value="Handicrafts">Handicrafts</option>
                           <option value="Tiffin Service">Tiffin Service</option>
@@ -157,7 +157,7 @@ export default function SettingsPage() {
                           rows={4}
                           value={businessData.description}
                           onChange={(e) => setBusinessData({...businessData, description: e.target.value})}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all resize-none"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all resize-none"
                         />
                       </div>
                     </div>
@@ -178,7 +178,7 @@ export default function SettingsPage() {
                           type="checkbox" 
                           checked={notifications.emailInquiries}
                           onChange={(e) => setNotifications({...notifications, emailInquiries: e.target.checked})}
-                          className="w-5 h-5 text-purple-600 rounded border-gray-300 focus:ring-purple-500"
+                          className="w-5 h-5 text-rose-600 rounded border-gray-300 focus:ring-rose-500"
                         />
                       </label>
 
@@ -191,7 +191,7 @@ export default function SettingsPage() {
                           type="checkbox" 
                           checked={notifications.smsAlerts}
                           onChange={(e) => setNotifications({...notifications, smsAlerts: e.target.checked})}
-                          className="w-5 h-5 text-purple-600 rounded border-gray-300 focus:ring-purple-500"
+                          className="w-5 h-5 text-rose-600 rounded border-gray-300 focus:ring-rose-500"
                         />
                       </label>
                     </div>
@@ -218,7 +218,7 @@ export default function SettingsPage() {
                   <button 
                     type="submit"
                     disabled={isSaving}
-                    className="bg-gradient-to-r from-purple-700 to-pink-500 hover:from-purple-800 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-70 flex items-center"
+                    className="bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-70 flex items-center"
                   >
                     {isSaving ? "Saving..." : (
                       <>

@@ -21,7 +21,7 @@ export default function AdminLearningContentPage() {
             <p className="mt-2 text-sm text-gray-500 font-medium">Add or edit articles, videos, and tools for the Guidance Hub.</p>
           </div>
           <div className="mt-4 md:mt-0">
-            <button className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-gradient-to-r from-purple-700 to-pink-500 hover:from-purple-800 hover:to-pink-600 transition-all hover:shadow-md">
+            <button className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 transition-all hover:shadow-md">
               <PlusCircle className="h-4 w-4 mr-2" />
               Add Content
             </button>
@@ -46,8 +46,8 @@ export default function AdminLearningContentPage() {
                   <tr key={content.id} className="hover:bg-gray-50/50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                          {content.type === "Article" ? <FileText className="h-5 w-5 text-purple-600" /> : <Video className="h-5 w-5 text-pink-600" />}
+                        <div className="flex-shrink-0 h-10 w-10 bg-rose-100 rounded-lg flex items-center justify-center">
+                          {content.type === "Article" ? <FileText className="h-5 w-5 text-rose-600" /> : <Video className="h-5 w-5 text-orange-600" />}
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{content.title}</div>
@@ -68,7 +68,7 @@ export default function AdminLearningContentPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button className="text-gray-400 hover:text-purple-600 p-2 transition-colors">
+                      <button className="text-gray-400 hover:text-rose-600 p-2 transition-colors">
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button className="text-gray-400 hover:text-red-600 p-2 transition-colors ml-1">

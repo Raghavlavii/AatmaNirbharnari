@@ -59,9 +59,9 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen relative flex items-center justify-center bg-white px-4 py-24 overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-50/50 via-white to-pink-50/30 -z-10" />
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-rose-50/50 via-white to-orange-50/30 -z-10" />
+      <div className="absolute -top-40 -right-40 w-96 h-96 bg-rose-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob" />
+      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ export default function LoginPage() {
         <div className="bg-white/80 backdrop-blur-xl border border-gray-100 rounded-3xl p-8 md:p-10 shadow-xl">
           {/* Logo & Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 mb-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 mb-4">
               <Sparkles className="w-6 h-6" />
             </div>
             <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Welcome Back</h2>
@@ -92,7 +92,7 @@ export default function LoginPage() {
                   placeholder="name@example.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full pl-12 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all text-sm text-gray-900"
+                  className="w-full pl-12 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all text-sm text-gray-900"
                 />
               </div>
             </div>
@@ -101,7 +101,7 @@ export default function LoginPage() {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <label className="block text-sm font-semibold text-gray-700">Password</label>
-                <a href="#" className="text-xs font-semibold text-purple-600 hover:text-purple-700">Forgot password?</a>
+                <a href="#" className="text-xs font-semibold text-rose-600 hover:text-rose-700">Forgot password?</a>
               </div>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -112,7 +112,7 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full pl-12 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all text-sm text-gray-900"
+                  className="w-full pl-12 pr-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all text-sm text-gray-900"
                 />
               </div>
             </div>
@@ -121,7 +121,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-700 to-pink-500 hover:from-purple-800 hover:to-pink-600 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
             >
               {isLoading ? "Signing in..." : "Sign In"}
               {!isLoading && <ArrowRight className="w-4 h-4" />}
@@ -143,7 +143,7 @@ export default function LoginPage() {
           <div className="mt-8 text-center border-t border-gray-100 pt-6">
             <p className="text-sm text-gray-500">
               Don't have an account?{" "}
-              <Link href="/register" className="font-bold text-purple-600 hover:text-purple-700">
+              <Link href="/register" className="font-bold text-rose-600 hover:text-rose-700">
                 Register here
               </Link>
             </p>

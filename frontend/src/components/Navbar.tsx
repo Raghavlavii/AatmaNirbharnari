@@ -29,7 +29,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-700 to-pink-500 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-300">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-700 to-orange-500 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-300">
             <FaFemale className="text-white text-xl" />
           </div>
           <span className="text-2xl font-extrabold text-gradient tracking-tight">
@@ -44,7 +44,7 @@ export default function Navbar() {
               key={item.name}
               href={item.href}
               className={`text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 ${
-                isActive(item.href) ? "text-purple-700" : "text-gray-600 hover:text-purple-600"
+                isActive(item.href) ? "text-rose-700" : "text-gray-600 hover:text-rose-600"
               }`}
             >
               {item.name}
@@ -56,13 +56,13 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-semibold text-gray-700 hover:text-purple-700 transition px-4 py-2"
+            className="text-sm font-semibold text-gray-700 hover:text-rose-700 transition px-4 py-2"
           >
             Log in
           </Link>
           <Link
             href="/register"
-            className="text-sm font-semibold text-white bg-gradient-to-r from-purple-700 to-pink-500 hover:from-purple-800 hover:to-pink-600 px-5 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+            className="text-sm font-semibold text-white bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 px-5 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
           >
             Sign up free
           </Link>
@@ -70,7 +70,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden text-gray-700 hover:text-purple-700 transition"
+          className="lg:hidden text-gray-700 hover:text-rose-700 transition"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -93,7 +93,7 @@ export default function Navbar() {
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`block text-lg font-semibold ${
-                    isActive(item.href) ? "text-purple-700" : "text-gray-700 hover:text-purple-600"
+                    isActive(item.href) ? "text-rose-700" : "text-gray-700 hover:text-rose-600"
                   }`}
                 >
                   {item.name}
@@ -110,7 +110,7 @@ export default function Navbar() {
                 <Link
                   href="/register"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-center text-white bg-gradient-to-r from-purple-700 to-pink-500 font-semibold py-3 rounded-xl shadow-md"
+                  className="block text-center text-white bg-gradient-to-r from-rose-700 to-orange-500 font-semibold py-3 rounded-xl shadow-md"
                 >
                   Sign up free
                 </Link>

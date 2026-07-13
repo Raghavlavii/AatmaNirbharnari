@@ -28,9 +28,9 @@ export default function CustomerInsightsPage() {
   ];
 
   const stats = [
-    { label: "Total Customers", value: "486", change: "+12.5%", icon: Users, color: "text-purple-600", bg: "bg-purple-100" },
-    { label: "Repeat Customers", value: "189", change: "+8.3%", icon: Heart, color: "text-pink-500", bg: "bg-pink-100" },
-    { label: "Avg. Order Value", value: "₹1,240", change: "+5.7%", icon: ShoppingBag, color: "text-purple-600", bg: "bg-purple-100" },
+    { label: "Total Customers", value: "486", change: "+12.5%", icon: Users, color: "text-rose-600", bg: "bg-rose-100" },
+    { label: "Repeat Customers", value: "189", change: "+8.3%", icon: Heart, color: "text-orange-500", bg: "bg-orange-100" },
+    { label: "Avg. Order Value", value: "₹1,240", change: "+5.7%", icon: ShoppingBag, color: "text-rose-600", bg: "bg-rose-100" },
     { label: "Satisfaction Rate", value: "4.8/5", change: "+0.2", icon: Star, color: "text-amber-500", bg: "bg-amber-100" },
   ];
 
@@ -41,8 +41,8 @@ export default function CustomerInsightsPage() {
         {/* Header */}
         <div className="py-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-pink-100 rounded-xl">
-              <Heart className="h-6 w-6 text-pink-500" />
+            <div className="p-2 bg-orange-100 rounded-xl">
+              <Heart className="h-6 w-6 text-orange-500" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Customer Insights</h1>
           </div>
@@ -80,7 +80,7 @@ export default function CustomerInsightsPage() {
           <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div className="p-6 border-b border-gray-100">
               <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <Users className="w-5 h-5 text-purple-600" />
+                <Users className="w-5 h-5 text-rose-600" />
                 Top Customers
               </h2>
               <p className="text-sm text-gray-500 mt-1">Your most loyal customers by number of orders.</p>
@@ -95,7 +95,7 @@ export default function CustomerInsightsPage() {
                   className="flex items-center justify-between p-4 px-6 hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-white font-bold text-sm shadow-sm">
                       {customer.name.charAt(0)}
                     </div>
                     <div>
@@ -119,7 +119,7 @@ export default function CustomerInsightsPage() {
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm">
             <div className="p-6 border-b border-gray-100">
               <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-pink-500" />
+                <MapPin className="w-5 h-5 text-orange-500" />
                 Where They Are
               </h2>
               <p className="text-sm text-gray-500 mt-1">Customer distribution by city.</p>
@@ -138,7 +138,7 @@ export default function CustomerInsightsPage() {
                   </div>
                   <div className="w-full bg-gray-100 rounded-full h-2">
                     <motion.div
-                      className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                      className="bg-gradient-to-r from-rose-500 to-orange-500 h-2 rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: `${loc.percentage}%` }}
                       transition={{ delay: 0.7 + i * 0.1, duration: 0.6, ease: "easeOut" }}
@@ -154,7 +154,7 @@ export default function CustomerInsightsPage() {
         <div className="mt-6 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="p-6 border-b border-gray-100">
             <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-purple-600" />
+              <TrendingUp className="w-5 h-5 text-rose-600" />
               Most Popular Products
             </h2>
             <p className="text-sm text-gray-500 mt-1">Products your customers love the most.</p>

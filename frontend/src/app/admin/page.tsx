@@ -51,8 +51,8 @@ export default function AdminDashboardPage() {
   }, []);
 
   const stats = [
-    { name: "Total Businesses", value: adminStats?.totalBusinesses || 0, icon: Store, color: "text-purple-600", bg: "bg-purple-100" },
-    { name: "Total Users", value: adminStats?.totalUsers || 0, icon: Users, color: "text-pink-500", bg: "bg-pink-100" },
+    { name: "Total Businesses", value: adminStats?.totalBusinesses || 0, icon: Store, color: "text-rose-600", bg: "bg-rose-100" },
+    { name: "Total Users", value: adminStats?.totalUsers || 0, icon: Users, color: "text-orange-500", bg: "bg-orange-100" },
     { name: "Customer Inquiries", value: adminStats?.totalInquiries || 0, icon: AlertCircle, color: "text-yellow-600", bg: "bg-yellow-100" },
     { name: "Profile Completion Rate", value: `${adminStats?.completionRate || 0}%`, icon: TrendingUp, color: "text-green-600", bg: "bg-green-100" },
   ];
@@ -83,7 +83,7 @@ export default function AdminDashboardPage() {
             <input
               type="text"
               placeholder="Search businesses or users..."
-              className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-full focus:ring-2 focus:ring-purple-500 outline-none shadow-sm w-64"
+              className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-full focus:ring-2 focus:ring-rose-500 outline-none shadow-sm w-64"
             />
           </div>
         </div>
@@ -107,19 +107,19 @@ export default function AdminDashboardPage() {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
           <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
             <h3 className="text-lg leading-6 font-semibold text-gray-900 flex items-center">
-              <Store className="h-5 w-5 mr-2 text-purple-500" />
+              <Store className="h-5 w-5 mr-2 text-rose-500" />
               Business Approvals
             </h3>
             <div className="flex space-x-2">
               <button 
                 onClick={() => setActiveTab("pending")}
-                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${activeTab === 'pending' ? 'bg-purple-100 text-purple-700' : 'text-gray-500 hover:bg-gray-100'}`}
+                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${activeTab === 'pending' ? 'bg-rose-100 text-rose-700' : 'text-gray-500 hover:bg-gray-100'}`}
               >
                 Pending
               </button>
               <button 
                 onClick={() => setActiveTab("approved")}
-                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${activeTab === 'approved' ? 'bg-purple-100 text-purple-700' : 'text-gray-500 hover:bg-gray-100'}`}
+                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${activeTab === 'approved' ? 'bg-rose-100 text-rose-700' : 'text-gray-500 hover:bg-gray-100'}`}
               >
                 Recently Approved
               </button>
@@ -144,7 +144,7 @@ export default function AdminDashboardPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{biz.id}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{biz.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-50 text-purple-700">
+                      <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-rose-50 text-rose-700">
                         {biz.category}
                       </span>
                     </td>

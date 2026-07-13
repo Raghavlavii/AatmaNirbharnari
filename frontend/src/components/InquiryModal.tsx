@@ -92,7 +92,7 @@ export default function InquiryModal({ businessId, businessName, isOpen, onClose
                   required
                   value={formData.customerName}
                   onChange={(e) => setFormData({...formData, customerName: e.target.value})}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all"
                   placeholder="Jane Doe"
                 />
               </div>
@@ -104,7 +104,7 @@ export default function InquiryModal({ businessId, businessName, isOpen, onClose
                   required
                   value={formData.customerEmail}
                   onChange={(e) => setFormData({...formData, customerEmail: e.target.value})}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all"
                   placeholder="jane@example.com"
                 />
               </div>
@@ -116,7 +116,7 @@ export default function InquiryModal({ businessId, businessName, isOpen, onClose
                   required
                   value={formData.subject}
                   onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all"
                   placeholder="e.g. Bulk Order Inquiry"
                 />
               </div>
@@ -128,7 +128,7 @@ export default function InquiryModal({ businessId, businessName, isOpen, onClose
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all resize-none"
                   placeholder="How can they help you?"
                 />
               </div>
@@ -136,7 +136,7 @@ export default function InquiryModal({ businessId, businessName, isOpen, onClose
               <button 
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center transition-colors disabled:opacity-70"
+                className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center transition-colors disabled:opacity-70"
               >
                 {status === "loading" ? "Sending..." : (
                   <>

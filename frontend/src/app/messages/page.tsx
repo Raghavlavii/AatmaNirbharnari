@@ -39,7 +39,7 @@ export default function MessagesPage() {
 
   const statusIcon = (status: Inquiry["status"]) => {
     switch (status) {
-      case "unread": return <Circle className="w-3.5 h-3.5 text-purple-500 fill-purple-500" />;
+      case "unread": return <Circle className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />;
       case "read": return <Clock className="w-3.5 h-3.5 text-amber-500" />;
       case "replied": return <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />;
     }
@@ -69,12 +69,12 @@ export default function MessagesPage() {
         {/* Header */}
         <div className="py-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-purple-100 rounded-xl">
-              <MessageSquare className="h-6 w-6 text-purple-600" />
+            <div className="p-2 bg-rose-100 rounded-xl">
+              <MessageSquare className="h-6 w-6 text-rose-600" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Inquiries</h1>
             {unreadCount > 0 && (
-              <span className="ml-2 px-2.5 py-0.5 bg-purple-600 text-white text-xs font-bold rounded-full">
+              <span className="ml-2 px-2.5 py-0.5 bg-rose-600 text-white text-xs font-bold rounded-full">
                 {unreadCount} new
               </span>
             )}
@@ -92,7 +92,7 @@ export default function MessagesPage() {
                 placeholder="Search inquiries..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-gray-50 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all"
+                className="w-full pl-10 pr-4 py-2.5 bg-gray-50 rounded-xl focus:ring-2 focus:ring-rose-500 outline-none text-sm text-gray-900 placeholder-gray-400 transition-all"
               />
             </div>
             <div className="flex gap-2">
@@ -103,7 +103,7 @@ export default function MessagesPage() {
                   className={clsx(
                     "px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap",
                     filter === f.value
-                      ? "bg-purple-600 text-white shadow-sm"
+                      ? "bg-rose-600 text-white shadow-sm"
                       : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                   )}
                 >
@@ -132,7 +132,7 @@ export default function MessagesPage() {
                 className={clsx(
                   "group bg-white rounded-2xl border p-5 transition-all hover:shadow-md cursor-pointer",
                   inq.status === "unread"
-                    ? "border-purple-200 bg-purple-50/30"
+                    ? "border-rose-200 bg-rose-50/30"
                     : "border-gray-100"
                 )}
               >
@@ -155,7 +155,7 @@ export default function MessagesPage() {
                     <span className="text-xs text-gray-400 whitespace-nowrap">{inq.date}</span>
                     <span className={clsx(
                       "text-xs px-2 py-0.5 rounded-full font-medium",
-                      inq.status === "unread" && "bg-purple-100 text-purple-700",
+                      inq.status === "unread" && "bg-rose-100 text-rose-700",
                       inq.status === "read" && "bg-amber-100 text-amber-700",
                       inq.status === "replied" && "bg-green-100 text-green-700",
                     )}>
@@ -170,7 +170,7 @@ export default function MessagesPage() {
                     <Send className="w-3.5 h-3.5" />
                     Click to view full conversation
                   </div>
-                  <ArrowRight className="w-4 h-4 text-purple-500" />
+                  <ArrowRight className="w-4 h-4 text-rose-500" />
                 </div>
               </motion.div>
             ))}

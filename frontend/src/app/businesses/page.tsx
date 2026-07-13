@@ -124,7 +124,7 @@ export default function BusinessesPage() {
               placeholder="Search by business name or keyword..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+              className="w-full pl-12 pr-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-rose-500 outline-none transition-all text-gray-900 placeholder-gray-400"
             />
           </div>
           <div className="w-full lg:w-64 relative">
@@ -134,7 +134,7 @@ export default function BusinessesPage() {
               placeholder="Location..."
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all text-gray-900 placeholder-gray-400"
+              className="w-full pl-12 pr-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-rose-500 outline-none transition-all text-gray-900 placeholder-gray-400"
             />
           </div>
           <div className="w-full lg:w-64 relative">
@@ -142,7 +142,7 @@ export default function BusinessesPage() {
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full pl-12 pr-10 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all appearance-none cursor-pointer text-gray-900"
+              className="w-full pl-12 pr-10 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-rose-500 outline-none transition-all appearance-none cursor-pointer text-gray-900"
             >
               {categories.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
@@ -160,7 +160,7 @@ export default function BusinessesPage() {
                 onClick={() => setCategory(c)}
                 className={`px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
                   isActive 
-                    ? "bg-purple-600 text-white shadow-md shadow-purple-200" 
+                    ? "bg-rose-600 text-white shadow-md shadow-rose-200" 
                     : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-100"
                 }`}
               >
@@ -192,7 +192,7 @@ export default function BusinessesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {businesses.map((business, i) => {
               // Determine gradient and icon based on category for rich visual cards
-              let cardBg = "from-purple-500 to-pink-500";
+              let cardBg = "from-rose-500 to-orange-500";
               let cardEmoji = "🌸";
 
               if (business.category.toLowerCase().includes("food") || business.category.toLowerCase().includes("tiffin")) {
@@ -202,10 +202,10 @@ export default function BusinessesPage() {
                 cardBg = "from-blue-400 to-indigo-600";
                 cardEmoji = "👗";
               } else if (business.category.toLowerCase().includes("beauty")) {
-                cardBg = "from-pink-400 to-rose-500";
+                cardBg = "from-orange-400 to-rose-500";
                 cardEmoji = "✨";
               } else if (business.category.toLowerCase().includes("handicraft")) {
-                cardBg = "from-purple-500 to-indigo-500";
+                cardBg = "from-rose-500 to-indigo-500";
                 cardEmoji = "🏺";
               } else if (business.category.toLowerCase().includes("education")) {
                 cardBg = "from-teal-400 to-emerald-600";
@@ -228,7 +228,7 @@ export default function BusinessesPage() {
 
                   <div className="p-6 flex flex-col flex-grow">
                     <div className="flex justify-between items-start mb-4">
-                      <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full uppercase tracking-wider">
+                      <span className="px-3 py-1 bg-rose-50 text-rose-700 text-xs font-semibold rounded-full uppercase tracking-wider">
                         {business.category}
                       </span>
                       <div className="flex items-center text-yellow-400">
@@ -237,7 +237,7 @@ export default function BusinessesPage() {
                       </div>
                     </div>
                     
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-700 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-rose-700 transition-colors">
                       {business.businessName}
                     </h3>
                     <p className="text-gray-500 text-sm mb-6 line-clamp-2 flex-grow">
@@ -245,13 +245,13 @@ export default function BusinessesPage() {
                     </p>
 
                     <div className="flex items-center text-gray-500 text-sm mb-6">
-                      <MapPin className="w-4 h-4 mr-2 text-pink-500" />
+                      <MapPin className="w-4 h-4 mr-2 text-orange-500" />
                       {business.location}
                     </div>
 
                     <Link
                       href={`/businesses/${business._id}`}
-                      className="w-full py-3 px-4 bg-gray-50 hover:bg-purple-600 text-gray-700 hover:text-white rounded-xl font-semibold flex items-center justify-center transition-colors group/btn"
+                      className="w-full py-3 px-4 bg-gray-50 hover:bg-rose-600 text-gray-700 hover:text-white rounded-xl font-semibold flex items-center justify-center transition-colors group/btn"
                     >
                       View Profile
                       <ChevronRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />

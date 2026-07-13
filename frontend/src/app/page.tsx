@@ -21,16 +21,16 @@ export default function HomePage() {
   const categories = [
     { name: "Tiffin Service", icon: Coffee, color: "bg-orange-100 text-orange-600" },
     { name: "Tailoring", icon: Scissors, color: "bg-blue-100 text-blue-600" },
-    { name: "Beauty", icon: Sparkles, color: "bg-pink-100 text-pink-600" },
-    { name: "Handicrafts", icon: ShoppingBag, color: "bg-purple-100 text-purple-600" },
+    { name: "Beauty", icon: Sparkles, color: "bg-orange-100 text-orange-600" },
+    { name: "Handicrafts", icon: ShoppingBag, color: "bg-rose-100 text-rose-600" },
   ];
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-white">
       {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-purple-50 via-pink-50/30 to-white -z-10" />
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob" />
-      <div className="absolute top-40 -left-40 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000" />
+      <div className="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-rose-50 via-orange-50/30 to-white -z-10" />
+      <div className="absolute -top-40 -right-40 w-96 h-96 bg-rose-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob" />
+      <div className="absolute top-40 -left-40 w-96 h-96 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000" />
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 pt-32 pb-24 flex flex-col items-center text-center">
@@ -40,9 +40,9 @@ export default function HomePage() {
           animate="visible"
           className="max-w-4xl flex flex-col items-center"
         >
-          <motion.div variants={itemVariants} className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 border border-purple-100">
-            <span className="flex h-2 w-2 rounded-full bg-purple-600"></span>
-            <span className="text-sm font-semibold text-purple-700 uppercase tracking-wider">Empowering Women Entrepreneurs</span>
+          <motion.div variants={itemVariants} className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-50 border border-rose-100">
+            <span className="flex h-2 w-2 rounded-full bg-rose-600"></span>
+            <span className="text-sm font-semibold text-rose-700 uppercase tracking-wider">Empowering Women Entrepreneurs</span>
           </motion.div>
 
           <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-8 leading-tight">
@@ -57,14 +57,14 @@ export default function HomePage() {
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <Link
               href="/register"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-700 to-pink-500 hover:from-purple-800 hover:to-pink-600 text-white px-8 py-4 rounded-2xl font-semibold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 text-white px-8 py-4 rounded-2xl font-semibold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
               Start Selling Today
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               href="/businesses"
-              className="inline-flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-200 hover:border-purple-300 hover:bg-purple-50 px-8 py-4 rounded-2xl font-semibold transition-all shadow-sm"
+              className="inline-flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-200 hover:border-rose-300 hover:bg-rose-50 px-8 py-4 rounded-2xl font-semibold transition-all shadow-sm"
             >
               Explore Services
             </Link>

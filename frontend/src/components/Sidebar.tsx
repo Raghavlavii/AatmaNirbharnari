@@ -54,14 +54,14 @@ export default function Sidebar({ role = "entrepreneur" }: { role?: "entrepreneu
               className={clsx(
                 "flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 group",
                 isActive 
-                  ? "bg-purple-50 text-purple-700" 
+                  ? "bg-rose-50 text-rose-700" 
                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               )}
             >
               <link.icon 
                 className={clsx(
                   "mr-3 flex-shrink-0 h-5 w-5 transition-colors duration-200",
-                  isActive ? "text-purple-600" : "text-gray-400 group-hover:text-gray-500"
+                  isActive ? "text-rose-600" : "text-gray-400 group-hover:text-gray-500"
                 )} 
               />
               {link.name}
@@ -71,11 +71,11 @@ export default function Sidebar({ role = "entrepreneur" }: { role?: "entrepreneu
       </nav>
 
       {role === "entrepreneur" && (
-        <div className="mt-8 mx-3 p-4 bg-gradient-to-br from-purple-700 to-pink-500 rounded-2xl text-white shadow-md relative overflow-hidden">
+        <div className="mt-8 mx-3 p-4 bg-gradient-to-br from-rose-700 to-orange-500 rounded-2xl text-white shadow-md relative overflow-hidden">
           <div className="absolute top-0 right-0 -mt-2 -mr-2 w-16 h-16 bg-white opacity-10 rounded-full blur-xl"></div>
           <p className="text-sm font-bold mb-1 relative z-10">Premium Support</p>
-          <p className="text-xs text-purple-100 mb-3 relative z-10">Need help scaling your business?</p>
-          <button className="w-full bg-white text-purple-700 text-xs font-semibold py-1.5 rounded-lg shadow-sm hover:bg-gray-50 transition-colors relative z-10">
+          <p className="text-xs text-rose-100 mb-3 relative z-10">Need help scaling your business?</p>
+          <button className="w-full bg-white text-rose-700 text-xs font-semibold py-1.5 rounded-lg shadow-sm hover:bg-gray-50 transition-colors relative z-10">
             Contact Expert
           </button>
         </div>

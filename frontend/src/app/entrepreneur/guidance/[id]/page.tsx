@@ -57,7 +57,7 @@ const guidanceContent: Record<string, any> = {
     type: "Tool",
     readTime: "Interactive",
     icon: Calculator,
-    color: "bg-purple-100 text-purple-600",
+    color: "bg-rose-100 text-rose-600",
     content: `
       ## Cost Estimation Framework
       Proper cost estimation ensures you never sell at a loss. Use the formula below to calculate your minimum viable price.
@@ -88,7 +88,7 @@ export default async function GuidanceContentPage({ params }: { params: Promise<
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Content Not Found</h1>
         <p className="text-gray-500 mb-6">The guidance module you are looking for does not exist.</p>
-        <Link href="/entrepreneur/guidance" className="bg-purple-600 text-white px-6 py-2 rounded-xl font-medium hover:bg-purple-700 transition">
+        <Link href="/entrepreneur/guidance" className="bg-rose-600 text-white px-6 py-2 rounded-xl font-medium hover:bg-rose-700 transition">
           Back to Guidance Hub
         </Link>
       </div>
@@ -102,7 +102,7 @@ export default async function GuidanceContentPage({ params }: { params: Promise<
       {/* Header Banner */}
       <div className="bg-gray-50/50 border-b border-gray-100 pt-12 pb-8">
         <div className="max-w-4xl mx-auto px-6">
-          <Link href="/entrepreneur/guidance" className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-purple-600 mb-6 transition-colors">
+          <Link href="/entrepreneur/guidance" className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-rose-600 mb-6 transition-colors">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Hub
           </Link>
@@ -132,7 +132,7 @@ export default async function GuidanceContentPage({ params }: { params: Promise<
 
       {/* Content Body */}
       <div className="max-w-4xl mx-auto px-6 py-12">
-        <div className="prose prose-purple prose-lg max-w-none text-gray-600">
+        <div className="prose prose-rose prose-lg max-w-none text-gray-600">
           {content.content.split('\n').map((paragraph: string, index: number) => {
             if (paragraph.trim() === '') return null;
             if (paragraph.trim().startsWith('## ')) {

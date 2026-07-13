@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-purple: #6D28D9;
-  --color-brand-pink: #EC4899;
-  --color-brand-lavender: #F3E8FF;
+  --color-brand-rose: #E11D48; /* rose-600 */
+  --color-brand-orange: #F97316; /* orange-500 */
+  --color-brand-lavender: #FFF1F2; /* rose-50 equivalent */
   --color-brand-gray: #F8FAFC; /* slate-50 canvas equivalent */
   
   --font-sans: var(--font-inter), sans-serif;
@@ -51,7 +51,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(to right, var(--color-brand-purple), var(--color-brand-pink));
+  background: linear-gradient(to right, var(--color-brand-rose), var(--color-brand-orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

@@ -92,7 +92,7 @@ export default function AddBusinessPage() {
           </p>
           <Link
             href="/dashboard"
-            className="w-full inline-flex items-center justify-center bg-gradient-to-r from-purple-700 to-pink-500 hover:from-purple-800 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md"
+            className="w-full inline-flex items-center justify-center bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md"
           >
             Go to Dashboard
           </Link>
@@ -115,14 +115,14 @@ export default function AddBusinessPage() {
               <div key={num} className="flex items-center">
                 <div className={clsx(
                   "w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-colors duration-300",
-                  step >= num ? "bg-purple-600 text-white" : "bg-gray-200 text-gray-500"
+                  step >= num ? "bg-rose-600 text-white" : "bg-gray-200 text-gray-500"
                 )}>
                   {step > num ? <CheckCircle className="w-5 h-5" /> : num}
                 </div>
                 {num < 3 && (
                   <div className={clsx(
                     "w-16 md:w-24 h-1 mx-2 rounded-full transition-colors duration-300",
-                    step > num ? "bg-purple-600" : "bg-gray-200"
+                    step > num ? "bg-rose-600" : "bg-gray-200"
                   )} />
                 )}
               </div>
@@ -140,7 +140,7 @@ export default function AddBusinessPage() {
                 <motion.div key="step1" variants={slideVariants} initial="hidden" animate="visible" exit="exit" className="space-y-6">
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                      <Store className="w-5 h-5 mr-2 text-purple-600" />
+                      <Store className="w-5 h-5 mr-2 text-rose-600" />
                       Basic Information
                     </h3>
                   </div>
@@ -152,7 +152,7 @@ export default function AddBusinessPage() {
                       required
                       value={formData.businessName}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all text-gray-900"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all text-gray-900"
                       placeholder="e.g. Radhika's Handlooms"
                     />
                   </div>
@@ -163,7 +163,7 @@ export default function AddBusinessPage() {
                         name="category"
                         value={formData.category}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 pr-10 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all appearance-none cursor-pointer text-gray-900"
+                        className="w-full px-4 py-3 pr-10 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all appearance-none cursor-pointer text-gray-900"
                       >
                         {categories.map(c => <option key={c} value={c}>{c}</option>)}
                       </select>
@@ -178,7 +178,7 @@ export default function AddBusinessPage() {
                       value={formData.description}
                       onChange={handleChange}
                       rows={4}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all resize-none text-gray-900"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all resize-none text-gray-900"
                       placeholder="Describe what you sell or the services you provide..."
                     />
                   </div>
@@ -190,7 +190,7 @@ export default function AddBusinessPage() {
                 <motion.div key="step2" variants={slideVariants} initial="hidden" animate="visible" exit="exit" className="space-y-6">
                   <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                      <Phone className="w-5 h-5 mr-2 text-pink-500" />
+                      <Phone className="w-5 h-5 mr-2 text-orange-500" />
                       Contact Details
                     </h3>
                   </div>
@@ -204,7 +204,7 @@ export default function AddBusinessPage() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all text-gray-900"
+                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 outline-none transition-all text-gray-900"
                         placeholder="contact@yourbusiness.com"
                       />
                     </div>
@@ -219,7 +219,7 @@ export default function AddBusinessPage() {
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all text-gray-900"
+                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 outline-none transition-all text-gray-900"
                         placeholder="+91 98765 43210"
                       />
                     </div>
@@ -233,7 +233,7 @@ export default function AddBusinessPage() {
                         name="website"
                         value={formData.website}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all text-gray-900"
+                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 outline-none transition-all text-gray-900"
                         placeholder="https://www.yourbusiness.com"
                       />
                     </div>
@@ -258,12 +258,12 @@ export default function AddBusinessPage() {
                       required
                       value={formData.location}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all text-gray-900"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all text-gray-900"
                       placeholder="e.g. Bandra, Mumbai"
                     />
                   </div>
-                  <div className="bg-purple-50 border border-purple-100 rounded-xl p-4 mt-6">
-                    <p className="text-sm text-purple-700 flex items-start">
+                  <div className="bg-rose-50 border border-rose-100 rounded-xl p-4 mt-6">
+                    <p className="text-sm text-rose-700 flex items-start">
                       <span className="mr-2">💡</span>
                       Adding your accurate location helps local customers find you quickly on our marketplace.
                     </p>
@@ -291,7 +291,7 @@ export default function AddBusinessPage() {
               {step < 3 ? (
                 <button
                   type="submit"
-                  className="flex items-center px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-xl font-semibold transition-all shadow-md"
+                  className="flex items-center px-6 py-3 bg-rose-700 hover:bg-rose-800 text-white rounded-xl font-semibold transition-all shadow-md"
                 >
                   Continue
                   <ChevronRight className="w-5 h-5 ml-1" />
@@ -300,7 +300,7 @@ export default function AddBusinessPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex items-center px-8 py-3 bg-gradient-to-r from-purple-700 to-pink-500 hover:from-purple-800 hover:to-pink-600 text-white rounded-xl font-bold transition-all shadow-lg"
+                  className="flex items-center px-8 py-3 bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 text-white rounded-xl font-bold transition-all shadow-lg"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center">

@@ -29,7 +29,7 @@ export default function GuidanceHubPage() {
       title: "Cost Estimation Tool",
       description: "Calculate your raw materials and overheads accurately.",
       icon: Calculator,
-      color: "bg-purple-100 text-purple-600",
+      color: "bg-rose-100 text-rose-600",
       type: "Tool",
       readTime: "Interactive"
     }
@@ -40,7 +40,7 @@ export default function GuidanceHubPage() {
       <div className="max-w-6xl mx-auto px-6">
         
         <div className="mb-12">
-          <span className="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full uppercase tracking-wider mb-4 inline-block">
+          <span className="px-3 py-1 bg-rose-50 text-rose-700 text-xs font-semibold rounded-full uppercase tracking-wider mb-4 inline-block">
             Learning Center
           </span>
           <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">Business Guidance Hub</h1>
@@ -50,15 +50,15 @@ export default function GuidanceHubPage() {
         </div>
 
         {/* Featured Resource */}
-        <div className="bg-gradient-to-r from-purple-700 to-pink-500 rounded-3xl p-8 text-white shadow-lg mb-12 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-rose-700 to-orange-500 rounded-3xl p-8 text-white shadow-lg mb-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 -mt-10 -mr-10 w-48 h-48 bg-white opacity-10 rounded-full blur-2xl"></div>
           <div className="relative z-10 md:w-2/3">
             <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4 inline-block">Featured</span>
             <h2 className="text-3xl font-bold mb-4">How to take beautiful product photos with your phone</h2>
-            <p className="text-purple-100 mb-6 text-lg">
+            <p className="text-rose-100 mb-6 text-lg">
               Good photography increases sales by 40%. Learn the simple tricks to lighting and framing your products.
             </p>
-            <button className="bg-white text-purple-700 font-bold py-3 px-6 rounded-xl shadow-sm hover:bg-gray-50 transition-colors flex items-center">
+            <button className="bg-white text-rose-700 font-bold py-3 px-6 rounded-xl shadow-sm hover:bg-gray-50 transition-colors flex items-center">
               <Video className="w-5 h-5 mr-2" />
               Watch Tutorial
             </button>
@@ -89,7 +89,7 @@ export default function GuidanceHubPage() {
               </p>
               <Link
                 href={`/entrepreneur/guidance/${topic.id}`}
-                className="text-purple-600 font-semibold text-sm flex items-center group-hover:text-purple-700"
+                className="text-rose-600 font-semibold text-sm flex items-center group-hover:text-rose-700"
               >
                 Start Learning
                 <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
