@@ -101,7 +101,7 @@ export default function DashboardPage() {
           {stats.map((item) => (
             <div
               key={item.name}
-              className="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow-sm border border-gray-100 rounded-2xl overflow-hidden hover:shadow-md transition-shadow"
+              className="relative glass-panel pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-white/60 rounded-2xl overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300"
             >
               <dt>
                 <div className={`absolute rounded-xl p-3 ${item.bg}`}>
@@ -118,7 +118,7 @@ export default function DashboardPage() {
                 >
                   {item.change}
                 </p>
-                <div className="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
+                <div className="absolute bottom-0 inset-x-0 bg-white/40 backdrop-blur-md border-t border-white/60 px-4 py-4 sm:px-6">
                   <div className="text-sm">
                     <a href="#" className="font-medium text-rose-600 hover:text-rose-500 flex items-center">
                       View all <ArrowRight className="ml-1 h-4 w-4" />
@@ -137,7 +137,7 @@ export default function DashboardPage() {
           <div className="lg:col-span-2 space-y-8">
             
             {/* Business Setup Checklist */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="glass-panel rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-white/60 p-6">
               <h3 className="text-lg leading-6 font-semibold text-gray-900 mb-4">
                 Business Setup Checklist
               </h3>
@@ -171,7 +171,7 @@ export default function DashboardPage() {
               </ul>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
+            <div className="glass-panel rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-white/60 overflow-hidden">
               <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
                 <h3 className="text-lg leading-6 font-semibold text-gray-900 flex items-center">
                   <Activity className="h-5 w-5 mr-2 text-rose-600" />
@@ -192,7 +192,7 @@ export default function DashboardPage() {
                       <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-100">
+                  <tbody className="divide-y divide-gray-100/50">
                     {recentOrders.map((order) => (
                       <tr key={order.id} className="hover:bg-gray-50/50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
@@ -220,7 +220,7 @@ export default function DashboardPage() {
           <div className="space-y-8">
             
             {/* Quick Links */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="glass-panel rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-white/60 p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
               <div className="space-y-3">
                 <Link href="/businesses" className="group flex items-center p-3 rounded-xl border border-gray-100 hover:border-rose-200 hover:bg-rose-50 transition-all">
