@@ -79,8 +79,9 @@ const guidanceContent: Record<string, any> = {
   }
 };
 
-export default function GuidanceContentPage({ params }: { params: { id: string } }) {
-  const content = guidanceContent[params.id];
+export default async function GuidanceContentPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const content = guidanceContent[resolvedParams.id];
 
   if (!content) {
     return (
