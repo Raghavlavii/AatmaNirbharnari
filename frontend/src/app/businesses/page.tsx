@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Search, MapPin, Filter, Star, ChevronRight, ChevronDown } from "lucide-react";
 import { API_BASE_URL } from "@/lib/api";
@@ -21,11 +22,14 @@ interface Business {
   };
 }
 
-export default function BusinessesPage() {
+function BusinessesContent() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get("category") || "All";
+
   const [businesses, setBusinesses] = useState<Business[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState(initialCategory);
   const [location, setLocation] = useState("");
 
   const categories = ["All", "Fashion", "Food", "Beauty", "Education", "Handicrafts", "Tailoring", "Tiffin Service"];
@@ -264,5 +268,13 @@ export default function BusinessesPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function BusinessesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50/50 pt-32 pb-24 flex items-center justify-center"><div className="w-12 h-12 border-4 border-rose-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+      <BusinessesContent />
+    </Suspense>
   );
 }
