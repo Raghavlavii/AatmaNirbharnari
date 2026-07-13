@@ -17,6 +17,8 @@ export default function AdminDashboardPage() {
   const [adminStats, setAdminStats] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [complaints, setComplaints] = useState<any[]>([]);
+
   useEffect(() => {
     const fetchStats = async () => {
       try {
@@ -31,7 +33,21 @@ export default function AdminDashboardPage() {
         setIsLoading(false);
       }
     };
+    
+    const fetchComplaints = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/complaints`);
+        const data = await response.json();
+        if (data.success) {
+          setComplaints(data.complaints);
+        }
+      } catch (error) {
+        console.error("Failed to fetch complaints", error);
+      }
+    };
+
     fetchStats();
+    fetchComplaints();
   }, []);
 
   const stats = [
@@ -88,10 +104,10 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Approvals Section */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
           <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
             <h3 className="text-lg leading-6 font-semibold text-gray-900 flex items-center">
-              <AlertCircle className="h-5 w-5 mr-2 text-yellow-500" />
+              <Store className="h-5 w-5 mr-2 text-purple-500" />
               Business Approvals
             </h3>
             <div className="flex space-x-2">
@@ -146,6 +162,60 @@ export default function AdminDashboardPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+
+        {/* Complaints Section */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+          <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+            <h3 className="text-lg leading-6 font-semibold text-gray-900 flex items-center">
+              <AlertCircle className="h-5 w-5 mr-2 text-red-500" />
+              Customer Reports & Complaints
+            </h3>
+          </div>
+          
+          <div className="overflow-x-auto">
+            {complaints.length === 0 ? (
+              <div className="p-8 text-center text-gray-500">
+                No active complaints. Great job!
+              </div>
+            ) : (
+              <table className="min-w-full divide-y divide-gray-100">
+                <thead className="bg-gray-50/50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reported By</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-100">
+                  {complaints.map((complaint) => (
+                    <tr key={complaint._id} className="hover:bg-gray-50/50 transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {new Date(complaint.createdAt).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {complaint.reportedBy}<br/>
+                        <span className="text-xs text-gray-500">{complaint.reporterEmail}</span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
+                        {complaint.subject}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">
+                        {complaint.description}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${complaint.status === 'open' ? 'bg-red-50 text-red-700' : 'bg-gray-100 text-gray-700'}`}>
+                          {complaint.status.toUpperCase()}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
 

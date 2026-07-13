@@ -6,6 +6,8 @@ const connectDB = require("./src/config/db");
 const authRoutes = require("./routes/authRoutes");
 const businessRoutes = require("./routes/businessRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const inquiryRoutes = require("./routes/inquiryRoutes");
+const complaintRoutes = require("./routes/complaintRoutes");
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use(async (req, res, next) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/business", businessRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/inquiries", inquiryRoutes);
+app.use("/api/complaints", complaintRoutes);
 
 // Home Route
 app.get("/", (req, res) => {
