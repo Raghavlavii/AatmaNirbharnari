@@ -99,21 +99,22 @@ export default function HomePage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((cat, i) => (
-            <motion.div
-              key={cat.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="group cursor-pointer bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 text-center flex flex-col items-center"
-            >
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${cat.color}`}>
-                <cat.icon className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900">{cat.name}</h3>
-              <p className="text-sm text-gray-500 mt-2">Explore services</p>
-            </motion.div>
+            <Link key={cat.name} href={`/businesses?category=${encodeURIComponent(cat.name)}`}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="group cursor-pointer bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-xl transition-all duration-300 text-center flex flex-col items-center h-full"
+              >
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${cat.color}`}>
+                  <cat.icon className="w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">{cat.name}</h3>
+                <p className="text-sm text-gray-500 mt-2">Explore services</p>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </section>
