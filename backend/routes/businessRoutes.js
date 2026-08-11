@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const protect = require("../middleware/authMiddleware");
+const upload = require("../middleware/uploadMiddleware");
 
 const createBusiness = require("../src/controllers/business/createBusinessController");
 const getBusinesses = require("../src/controllers/business/getBusinessesController");
@@ -14,6 +15,6 @@ router.get("/", getBusinesses);
 router.get("/:id", getBusinessById);
 
 // Add business
-router.post("/", protect, createBusiness);
+router.post("/", protect, upload.single("image"), createBusiness);
 
 module.exports = router;

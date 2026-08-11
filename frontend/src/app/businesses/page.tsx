@@ -16,6 +16,7 @@ interface Business {
   phone: string;
   email: string;
   website: string;
+  image?: string;
   owner?: {
     fullName: string;
     email: string;
@@ -195,25 +196,19 @@ function BusinessesContent() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {businesses.map((business, i) => {
-              // Determine gradient and icon based on category for rich visual cards
-              let cardBg = "from-rose-500 to-orange-500";
-              let cardEmoji = "🌸";
+              // Determine fallback image based on category
+              let fallbackImage = "/images/categories/default.png";
 
               if (business.category.toLowerCase().includes("food") || business.category.toLowerCase().includes("tiffin")) {
-                cardBg = "from-amber-400 to-orange-500";
-                cardEmoji = "🍲";
+                fallbackImage = "/images/categories/food.png";
               } else if (business.category.toLowerCase().includes("fashion") || business.category.toLowerCase().includes("tailor")) {
-                cardBg = "from-blue-400 to-indigo-600";
-                cardEmoji = "👗";
+                fallbackImage = "/images/categories/fashion.png";
               } else if (business.category.toLowerCase().includes("beauty")) {
-                cardBg = "from-orange-400 to-rose-500";
-                cardEmoji = "✨";
+                fallbackImage = "/images/categories/beauty.png";
               } else if (business.category.toLowerCase().includes("handicraft")) {
-                cardBg = "from-rose-500 to-indigo-500";
-                cardEmoji = "🏺";
+                fallbackImage = "/images/categories/handicrafts.png";
               } else if (business.category.toLowerCase().includes("education")) {
-                cardBg = "from-teal-400 to-emerald-600";
-                cardEmoji = "📚";
+                fallbackImage = "/images/categories/education.png";
               }
 
               return (
@@ -225,9 +220,13 @@ function BusinessesContent() {
                   className="group bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col"
                 >
                   {/* Card Header Banner */}
-                  <div className={`h-36 bg-gradient-to-br ${cardBg} relative flex items-center justify-center`}>
-                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <span className="text-5xl transform group-hover:scale-110 transition-transform duration-300">{cardEmoji}</span>
+                  <div className="h-36 relative overflow-hidden group">
+                    {business.image ? (
+                      <img src={`${API_BASE_URL}${business.image}`} alt={business.businessName} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    ) : (
+                      <img src={fallbackImage} alt={business.category} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    )}
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
 
                   <div className="p-6 flex flex-col flex-grow">

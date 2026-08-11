@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const path = require("path");
 const connectDB = require("./src/config/db");
 
 const authRoutes = require("./routes/authRoutes");
@@ -12,7 +13,9 @@ const complaintRoutes = require("./routes/complaintRoutes");
 const app = express();
 
 // ─── Security Middleware ───────────────────────────────────────────
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:3000",
@@ -22,6 +25,9 @@ app.use(
   })
 );
 app.use(express.json());
+
+// Serve static files from the uploads directory
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ─── DB Connection Middleware (ensures connection before every request) ───
 app.use(async (req, res, next) => {

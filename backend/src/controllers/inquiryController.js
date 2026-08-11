@@ -22,8 +22,9 @@ exports.submitInquiry = async (req, res) => {
     await newInquiry.save();
 
     // Fire-and-forget email alert to the business owner
-    // In a real app, you would fetch the business's actual email from the Business model here
-    const businessEmail = "owner@example.com"; 
+    const Business = require("../../models/Business");
+    const business = await Business.findById(businessId).populate("owner");
+    const businessEmail = business?.owner?.email || "owner@example.com"; 
 
     sendEmail({
       to: businessEmail,
@@ -41,7 +42,13 @@ exports.submitInquiry = async (req, res) => {
       `
     });
 
-    return res.status(201).json({ success: true, message: "Inquiry sent successfully" });
+    // Real-time socket emission
+    const io = req.app.get("io");
+    if (io && business && business.owner) {
+      io.to(business.owner._id.toString()).emit("newInquiry", newInquiry);
+    }
+
+    return res.status(201).json({ success: true, message: "Inquiry sent successfully", inquiry: newInquiry });
   } catch (error) {
     console.error("Error submitting inquiry:", error);
     return res.status(500).json({ success: false, message: "Internal server error" });

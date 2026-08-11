@@ -1,7 +1,18 @@
 {
+  "name": "aatmanirbharnari",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
+    "start": "npx concurrently \"npm run start --prefix frontend\" \"npm run start --prefix backend\"",
+    "install:all": "npm install && npm install --prefix frontend && npm install --prefix backend"
+  },
   "dependencies": {
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.23.0",
     "react-icons": "^5.7.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.4"
   }
 }

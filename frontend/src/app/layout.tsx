@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -60,10 +61,12 @@ export default function RootLayout({
         </svg>
       </div>
       
-      <Navbar />
-      <main className="pt-24">
-        {children}
-      </main>
+      <AuthProvider>
+        <Navbar />
+        <main className="pt-24">
+          {children}
+        </main>
+      </AuthProvider>
     </body>  
     </html>
   );

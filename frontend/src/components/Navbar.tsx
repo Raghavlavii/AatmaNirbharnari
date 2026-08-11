@@ -3,34 +3,40 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Search, Bell, MessageSquare, User } from "lucide-react";
+import { Menu, X, Search, Bell, MessageSquare, User, LayoutDashboard, LogOut } from "lucide-react";
 import { FaFemale } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { user, isLoggedIn, logout } = useAuth();
 
   const isActive = (path: string) => pathname === path;
-  
-  // Example state for logged in vs out - assuming logged in if on dashboard
-  const isLoggedIn = pathname.includes('/dashboard') || pathname.includes('/settings');
 
-  const navigation = [
+  const publicNav = [
     { name: "Home", href: "/" },
     { name: "Marketplace", href: "/businesses" },
     { name: "Start Your Business", href: "/add-business" },
-    { name: "Dashboard", href: "/dashboard" },
   ];
+
+  const loggedInNav = [
+    { name: "Home", href: "/" },
+    { name: "Marketplace", href: "/businesses" },
+    { name: "Dashboard", href: user?.role === "admin" ? "/admin" : "/dashboard" },
+  ];
+
+  const navigation = isLoggedIn ? loggedInNav : publicNav;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-panel border-b-0 m-4 mb-0 rounded-2xl shadow-sm">
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
 
-        {/* Brand / Logo (Hidden on Desktop if Sidebar has it, but let's keep it responsive) */}
-        <Link href="/" className={clsx("flex items-center gap-3 group", isLoggedIn ? "lg:hidden" : "")}>
+        {/* Brand / Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-pink to-brand-coral flex items-center justify-center shadow-md">
             <FaFemale className="text-white text-lg" />
           </div>
@@ -38,11 +44,8 @@ export default function Navbar() {
             Aatmanirbhar Nari
           </span>
         </Link>
-        
-        {/* Empty div for spacing on Desktop so Search is centered or right-aligned */}
-        <div className="hidden lg:block w-64"></div>
 
-        {/* Global Search Bar (Only for Logged In/Dashboard view) */}
+        {/* Center Navigation Links */}
         {isLoggedIn ? (
           <div className="hidden md:flex flex-1 max-w-xl mx-8 relative group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -71,30 +74,39 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* Right Section (Icons & Profile OR Auth Buttons) */}
+        {/* Right Section */}
         <div className="flex items-center gap-4">
           {isLoggedIn ? (
             <div className="hidden md:flex items-center gap-3">
-              <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors relative">
+              <Link
+                href={user?.role === "admin" ? "/admin" : "/dashboard"}
+                className="p-2 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors relative"
+                title="Dashboard"
+              >
+                <LayoutDashboard className="w-5 h-5" />
+              </Link>
+              <Link href="/messages" className="p-2 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors relative" title="Messages">
                 <MessageSquare className="w-5 h-5" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-brand-coral rounded-full"></span>
-              </button>
+                <span className="absolute top-1 right-1 w-2 h-2 bg-brand-coral rounded-full animate-pulse"></span>
+              </Link>
               <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors relative">
                 <Bell className="w-5 h-5" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-brand-pink rounded-full animate-pulse"></span>
               </button>
               <div className="h-8 w-px bg-gray-200 mx-2"></div>
               <div className="relative">
-                <button 
+                <button
                   onClick={() => setProfileMenuOpen(!profileMenuOpen)}
                   className="flex items-center gap-2 p-1 pl-2 pr-4 bg-white/50 hover:bg-white/80 border border-gray-100 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-brand-pink/20"
                 >
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-peach to-brand-coral flex items-center justify-center text-white">
-                    <User className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-peach to-brand-coral flex items-center justify-center text-white font-bold text-sm">
+                    {user?.fullName?.charAt(0)?.toUpperCase() || <User className="w-4 h-4" />}
                   </div>
-                  <span className="text-sm font-semibold text-gray-700">Profile</span>
+                  <span className="text-sm font-semibold text-gray-700 max-w-[100px] truncate">
+                    {user?.fullName?.split(" ")[0] || "Profile"}
+                  </span>
                 </button>
-                
+
                 <AnimatePresence>
                   {profileMenuOpen && (
                     <motion.div
@@ -102,28 +114,46 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute right-0 mt-3 w-56 rounded-2xl glass-panel bg-white/80 border-gray-100 shadow-xl overflow-hidden flex flex-col p-2 z-50"
+                      className="absolute right-0 mt-3 w-64 rounded-2xl glass-panel bg-white/80 border-gray-100 shadow-xl overflow-hidden flex flex-col p-2 z-50"
                     >
-                      <div className="px-3 py-2 border-b border-gray-100/50 mb-1">
-                        <p className="text-sm font-bold text-gray-900">My Account</p>
+                      {/* User Info Header */}
+                      <div className="px-3 py-3 border-b border-gray-100/50 mb-1">
+                        <p className="text-sm font-bold text-gray-900">{user?.fullName}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{user?.email}</p>
+                        <span className="inline-block mt-1.5 px-2 py-0.5 bg-brand-pink/10 text-brand-pink text-xs font-semibold rounded-full capitalize">
+                          {user?.role}
+                        </span>
                       </div>
-                      
-                      <Link href="/" className="px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-brand-pink hover:bg-white/60 rounded-xl transition-colors">
+
+                      <Link
+                        href="/"
+                        onClick={() => setProfileMenuOpen(false)}
+                        className="px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-brand-pink hover:bg-white/60 rounded-xl transition-colors"
+                      >
                         Home Page
                       </Link>
-                      <Link href="/settings" className="px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-brand-pink hover:bg-white/60 rounded-xl transition-colors">
+                      <Link
+                        href={user?.role === "admin" ? "/admin" : "/dashboard"}
+                        onClick={() => setProfileMenuOpen(false)}
+                        className="px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-brand-pink hover:bg-white/60 rounded-xl transition-colors"
+                      >
+                        {user?.role === "admin" ? "Admin Panel" : "My Dashboard"}
+                      </Link>
+                      <Link
+                        href="/settings"
+                        onClick={() => setProfileMenuOpen(false)}
+                        className="px-3 py-2.5 text-sm font-semibold text-gray-700 hover:text-brand-pink hover:bg-white/60 rounded-xl transition-colors"
+                      >
                         Settings
                       </Link>
-                      
+
                       <div className="h-px bg-gray-100/50 my-1"></div>
-                      
-                      <button 
-                        onClick={() => {
-                          localStorage.removeItem("user");
-                          window.location.href = "/login";
-                        }}
-                        className="px-3 py-2.5 text-sm font-bold text-red-600 hover:bg-red-50 rounded-xl text-left transition-colors"
+
+                      <button
+                        onClick={() => { setProfileMenuOpen(false); logout(); }}
+                        className="px-3 py-2.5 text-sm font-bold text-red-600 hover:bg-red-50 rounded-xl text-left transition-colors flex items-center gap-2"
                       >
+                        <LogOut className="w-4 h-4" />
                         Sign out
                       </button>
                     </motion.div>
@@ -181,6 +211,19 @@ export default function Navbar() {
                   {item.name}
                 </Link>
               ))}
+              {isLoggedIn ? (
+                <button
+                  onClick={() => { setMobileMenuOpen(false); logout(); }}
+                  className="block text-lg font-bold text-red-600 w-full text-left"
+                >
+                  Sign out
+                </button>
+              ) : (
+                <>
+                  <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="block text-lg font-semibold text-gray-700">Log in</Link>
+                  <Link href="/register" onClick={() => setMobileMenuOpen(false)} className="block text-lg font-bold text-brand-pink">Sign up free</Link>
+                </>
+              )}
             </div>
           </motion.div>
         )}

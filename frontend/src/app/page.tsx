@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Star, ShoppingBag, Scissors, Sparkles, Coffee } from "lucide-react";
+import { ArrowRight, Star, ShoppingBag, Scissors, Sparkles, Coffee, LayoutDashboard } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function HomePage() {
+  const { user, isLoggedIn } = useAuth();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -27,7 +30,7 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-transparent">
-      {/* Background Decor - Removed opaque layers so global Layout Doodles show through, and added Home Page specific Doodles */}
+      {/* Background Decor */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
         {/* Big Sparkle */}
         <svg className="absolute top-[10%] left-[5%] w-16 h-16 text-brand-pink/50 animate-float" style={{ animationDelay: "0.5s" }} viewBox="0 0 24 24" fill="currentColor">
@@ -64,30 +67,57 @@ export default function HomePage() {
             <span className="text-sm font-semibold text-rose-700 uppercase tracking-wider">Empowering Women Entrepreneurs</span>
           </motion.div>
 
-          <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-8 leading-tight">
-            Turn your passion into a <br className="hidden md:block" />
-            <span className="text-gradient">thriving business.</span>
-          </motion.h1>
-
-          <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
-            Aatmanirbhar Nari is the ultimate platform for women to showcase their home-based businesses, connect with customers, and grow independently.
-          </motion.p>
-
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <Link
-              href="/register"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 text-white px-8 py-4 rounded-2xl font-semibold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-            >
-              Start Selling Today
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link
-              href="/businesses"
-              className="inline-flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-200 hover:border-rose-300 hover:bg-rose-50 px-8 py-4 rounded-2xl font-semibold transition-all shadow-sm"
-            >
-              Explore Services
-            </Link>
-          </motion.div>
+          {isLoggedIn ? (
+            <>
+              <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-8 leading-tight">
+                Welcome back,{" "}
+                <span className="text-gradient">{user?.fullName?.split(" ")[0]}! 👋</span>
+              </motion.h1>
+              <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
+                Your business dashboard is ready. Continue managing your listings, track your orders, and grow your empire.
+              </motion.p>
+              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <Link
+                  href={user?.role === "admin" ? "/admin" : "/dashboard"}
+                  className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 text-white px-8 py-4 rounded-2xl font-semibold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                >
+                  <LayoutDashboard className="w-5 h-5" />
+                  Go to Dashboard
+                </Link>
+                <Link
+                  href="/businesses"
+                  className="inline-flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-200 hover:border-rose-300 hover:bg-rose-50 px-8 py-4 rounded-2xl font-semibold transition-all shadow-sm"
+                >
+                  Explore Marketplace
+                </Link>
+              </motion.div>
+            </>
+          ) : (
+            <>
+              <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-8 leading-tight">
+                Turn your passion into a <br className="hidden md:block" />
+                <span className="text-gradient">thriving business.</span>
+              </motion.h1>
+              <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
+                Aatmanirbhar Nari is the ultimate platform for women to showcase their home-based businesses, connect with customers, and grow independently.
+              </motion.p>
+              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                <Link
+                  href="/register"
+                  className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-700 to-orange-500 hover:from-rose-800 hover:to-orange-600 text-white px-8 py-4 rounded-2xl font-semibold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                >
+                  Start Selling Today
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="/businesses"
+                  className="inline-flex items-center justify-center gap-2 bg-white text-gray-700 border border-gray-200 hover:border-rose-300 hover:bg-rose-50 px-8 py-4 rounded-2xl font-semibold transition-all shadow-sm"
+                >
+                  Explore Services
+                </Link>
+              </motion.div>
+            </>
+          )}
         </motion.div>
       </section>
 
@@ -120,4 +150,4 @@ export default function HomePage() {
       </section>
     </main>
   );
-}
+}

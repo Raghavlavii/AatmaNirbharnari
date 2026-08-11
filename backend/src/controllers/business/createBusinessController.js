@@ -12,6 +12,8 @@ const createBusiness = async (req, res) => {
       website,
     } = req.body;
 
+    const image = req.file ? `/uploads/${req.file.filename}` : "";
+
     const business = await Business.create({
       businessName,
       category,
@@ -20,6 +22,7 @@ const createBusiness = async (req, res) => {
       phone,
       email,
       website,
+      image,
       owner: req.user.id,
     });
 

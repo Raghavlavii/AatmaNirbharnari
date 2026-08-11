@@ -21,6 +21,9 @@ export default function AddBusinessPage() {
     email: "",
     website: "",
   });
+  
+  const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>("");
 
   const categories = ["Fashion", "Food", "Beauty", "Education", "Handicrafts", "Tailoring", "Tiffin Service"];
 
@@ -29,6 +32,14 @@ export default function AddBusinessPage() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
   };
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 3));
@@ -46,13 +57,20 @@ export default function AddBusinessPage() {
         return;
       }
 
+      const formPayload = new FormData();
+      Object.keys(formData).forEach(key => {
+        formPayload.append(key, formData[key as keyof typeof formData]);
+      });
+      if (image) {
+        formPayload.append("image", image);
+      }
+
       const response = await fetch(`${API_BASE_URL}/api/business`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData),
+        body: formPayload,
       });
 
       const data = await response.json();
@@ -181,6 +199,27 @@ export default function AddBusinessPage() {
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-all resize-none text-gray-900"
                       placeholder="Describe what you sell or the services you provide..."
                     />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">Business Image</label>
+                    <div className="mt-1 flex items-center gap-4">
+                      {imagePreview && (
+                        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gray-200">
+                          <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="block w-full text-sm text-gray-500
+                          file:mr-4 file:py-2 file:px-4
+                          file:rounded-full file:border-0
+                          file:text-sm file:font-semibold
+                          file:bg-rose-50 file:text-rose-700
+                          hover:file:bg-rose-100 transition-all cursor-pointer"
+                      />
+                    </div>
                   </div>
                 </motion.div>
               )}

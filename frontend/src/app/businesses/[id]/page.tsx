@@ -2,31 +2,33 @@ import Link from "next/link";
 import { ArrowLeft, MapPin, Phone, Mail, Globe, Star, Clock, CheckCircle, MessageSquare } from "lucide-react";
 
 import ClientBusinessActions from "@/components/ClientBusinessActions";
+import { API_BASE_URL } from "@/lib/api";
 
 export default async function BusinessProfilePage({ params }: { params: Promise<{ id: string }> }) {
   // In Next.js 15, `params` is a Promise that must be awaited
   const { id } = await params;
   
-  // Simulated data fetch based on ID
-  const business = {
-    _id: id,
-    businessName: "Radhika's Handlooms",
-    category: "Handicrafts",
-    description: "Authentic handwoven sarees, dupattas, and ethnic wear directly from artisans. We believe in sustainable fashion and empowering local weavers across rural India.",
-    location: "Mumbai, Maharashtra",
-    phone: "+91 98765 43210",
-    email: "contact@radhikahandlooms.in",
-    website: "www.radhikahandlooms.in",
-    owner: {
-      fullName: "Radhika Sharma",
-      experience: "5+ Years",
-    },
-    services: [
-      "Custom Saree Weaving",
-      "Bulk Orders for Boutiques",
-      "Bridal Collections"
-    ]
-  };
+  let business = null;
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/business/${id}`, { next: { revalidate: 0 } });
+    if (res.ok) {
+      const data = await res.json();
+      business = data.business;
+    }
+  } catch (error) {
+    console.error("Failed to fetch business:", error);
+  }
+
+  if (!business) {
+    return (
+      <div className="min-h-screen bg-gray-50/50 pt-32 pb-24 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Business not found</h2>
+          <Link href="/businesses" className="text-rose-600 hover:underline">Return to Marketplace</Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50/50 pt-32 pb-24">
@@ -36,6 +38,12 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Marketplace
         </Link>
+
+        {business.image && (
+          <div className="w-full h-64 md:h-96 rounded-3xl overflow-hidden mb-8 shadow-sm">
+            <img src={`${API_BASE_URL}${business.image}`} alt={business.businessName} className="w-full h-full object-cover" />
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
@@ -48,7 +56,7 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
                     {business.category}
                   </span>
                   <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">{business.businessName}</h1>
-                  <p className="text-gray-500 mt-2 font-medium">Owned by {business.owner.fullName}</p>
+                  <p className="text-gray-500 mt-2 font-medium">Owned by {business.owner?.fullName || "Unknown"}</p>
                 </div>
                 <div className="bg-yellow-50 px-3 py-2 rounded-xl flex items-center border border-yellow-100">
                   <Star className="w-5 h-5 text-yellow-500 fill-current mr-1" />
@@ -63,29 +71,19 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
                 </p>
               </div>
 
-              <div className="mt-8 border-t border-gray-100 pt-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Services Offered</h3>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {business.services.map((service, idx) => (
-                    <li key={idx} className="flex items-center text-gray-700">
-                      <CheckCircle className="w-5 h-5 text-rose-600 mr-3 flex-shrink-0" />
-                      {service}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Gallery Placeholder */}
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Portfolio / Gallery</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="aspect-square bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400">
-                    <span className="text-3xl">🖼️</span>
-                  </div>
-                ))}
-              </div>
+              {business.services && business.services.length > 0 && (
+                <div className="mt-8 border-t border-gray-100 pt-8">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">Services Offered</h3>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {business.services.map((service: string, idx: number) => (
+                      <li key={idx} className="flex items-center text-gray-700">
+                        <CheckCircle className="w-5 h-5 text-rose-600 mr-3 flex-shrink-0" />
+                        {service}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
 
@@ -120,7 +118,15 @@ export default async function BusinessProfilePage({ params }: { params: Promise<
                   <Globe className="w-5 h-5 text-orange-500 mr-4 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-semibold text-gray-900">Website</p>
-                    <p className="text-sm text-rose-600 hover:underline cursor-pointer">{business.website}</p>
+                    <p className="text-sm text-rose-600 hover:underline cursor-pointer">
+                      {business.website ? (
+                        <a href={business.website.startsWith('http') ? business.website : `https://${business.website}`} target="_blank" rel="noopener noreferrer">
+                          {business.website}
+                        </a>
+                      ) : (
+                        "N/A"
+                      )}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start">
