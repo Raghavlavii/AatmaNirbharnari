@@ -24,8 +24,8 @@ const registerUser = async (req, res) => {
       role,
     });
 
-    // Send Welcome Email
-    await sendEmail({
+    // Send Welcome Email asynchronously (non-blocking)
+    sendEmail({
       to: email,
       subject: "Welcome to Aatmanirbhar Nari!",
       html: `
