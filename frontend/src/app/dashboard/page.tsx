@@ -40,11 +40,13 @@ const sparklineData = [
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
   const [businesses, setBusinesses] = useState<any[]>([]);
+  const [inquiriesData, setInquiriesData] = useState<{ inquiries: any[], unreadCount: number, totalInquiries: number }>({ inquiries: [], unreadCount: 0, totalInquiries: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       const storedUser = localStorage.getItem("user");
+      const token = localStorage.getItem("token");
       if (!storedUser) {
         window.location.href = "/login";
         return;
@@ -63,8 +65,24 @@ export default function DashboardPage() {
           );
           setBusinesses(myBusinesses);
         }
+
+        if (token) {
+          const inqRes = await fetch(`${API_BASE_URL}/api/inquiries/my-inquiries`, {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          });
+          const inqData = await inqRes.json();
+          if (inqData.success) {
+            setInquiriesData({
+              inquiries: inqData.inquiries,
+              unreadCount: inqData.unreadCount,
+              totalInquiries: inqData.totalInquiries
+            });
+          }
+        }
       } catch (error) {
-        console.error("Failed to fetch businesses", error);
+        console.error("Failed to fetch dashboard data", error);
       } finally {
         setIsLoading(false);
       }
@@ -74,18 +92,12 @@ export default function DashboardPage() {
   }, []);
 
   const stats = [
-    { name: "Total Revenue", value: "₹24,500", change: "+12.5%", icon: TrendingUp, color: "text-brand-pink", bg: "bg-brand-pink/10" },
-    { name: "Active Customers", value: "128", change: "+4.2%", icon: Users, color: "text-brand-coral", bg: "bg-brand-coral/10" },
-    { name: "Products Listed", value: businesses.length.toString(), change: businesses.length > 0 ? "+100%" : "0%", icon: ShoppingBag, color: "text-brand-pink", bg: "bg-brand-pink/10" },
-    { name: "Unread Messages", value: "5", change: "-2%", icon: MessageSquare, color: "text-brand-coral", bg: "bg-brand-coral/10" },
+    { name: "Total Inquiries", value: inquiriesData.totalInquiries.toString(), change: inquiriesData.totalInquiries > 0 ? "+100%" : "0%", icon: TrendingUp, color: "text-brand-pink", bg: "bg-brand-pink/10" },
+    { name: "Unread Messages", value: inquiriesData.unreadCount.toString(), change: "Now", icon: MessageSquare, color: "text-brand-coral", bg: "bg-brand-coral/10" },
+    { name: "Businesses Listed", value: businesses.length.toString(), change: businesses.length > 0 ? "+100%" : "0%", icon: ShoppingBag, color: "text-brand-pink", bg: "bg-brand-pink/10" },
+    { name: "Total Customers", value: new Set(inquiriesData.inquiries.map(i => i.customerEmail)).size.toString(), change: "+", icon: Users, color: "text-brand-coral", bg: "bg-brand-coral/10" },
   ];
 
-  const recentOrders = [
-    { id: "ORD-001", customer: "Priya Sharma", product: "Handcrafted Vase", amount: "₹450", status: "Completed", date: "Today, 10:23 AM" },
-    { id: "ORD-002", customer: "Anjali Gupta", product: "Silk Saree", amount: "₹2,100", status: "Processing", date: "Today, 09:15 AM" },
-    { id: "ORD-003", customer: "Ritu Patel", product: "Organic Spices Set", amount: "₹850", status: "Pending", date: "Yesterday, 04:30 PM" },
-    { id: "ORD-004", customer: "Sneha Reddy", product: "Terracotta Lamps", amount: "₹1,200", status: "Completed", date: "Yesterday, 11:00 AM" },
-  ];
 
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center">Loading Dashboard...</div>;
@@ -102,7 +114,7 @@ export default function DashboardPage() {
               Welcome back, <span className="text-gradient">{user?.fullName || "Entrepreneur"}</span> 👋
             </h1>
             <p className="mt-2 text-base text-gray-500 font-medium max-w-xl">
-              Here's an overview of your business performance today. You have <span className="text-brand-pink font-semibold">3 new orders</span> to process.
+              Here's an overview of your business performance today. You have <span className="text-brand-pink font-semibold">{inquiriesData.unreadCount} unread messages</span> waiting for your response.
             </p>
           </div>
           <div className="flex space-x-3">
@@ -162,8 +174,8 @@ export default function DashboardPage() {
             <div className="glass-panel p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">Revenue Growth</h3>
-                  <p className="text-sm text-gray-500 font-medium">Monthly performance vs target</p>
+                  <h3 className="text-xl font-bold text-gray-900">Inquiries Growth</h3>
+                  <p className="text-sm text-gray-500 font-medium">Customer interest over time</p>
                 </div>
                 <select className="bg-white/50 border border-gray-100 text-sm font-semibold text-gray-600 rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-brand-pink/20">
                   <option>Last 6 Months</option>
@@ -188,62 +200,66 @@ export default function DashboardPage() {
                       cursor={{ stroke: '#C83E6D', strokeWidth: 1, strokeDasharray: '5 5' }}
                     />
                     <Area type="monotone" dataKey="revenue" stroke="#C83E6D" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
-                    <Line type="monotone" dataKey="target" stroke="#FF7A59" strokeWidth={2} strokeDasharray="5 5" dot={false} />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
             </div>
 
-            {/* Recent Orders Table */}
+            {/* Recent Inquiries Table */}
             <div className="glass-panel overflow-hidden">
               <div className="px-6 py-5 border-b border-gray-100/50 flex items-center justify-between">
                 <h3 className="text-xl font-bold text-gray-900 flex items-center">
-                  Recent Orders
+                  Recent Inquiries
                 </h3>
-                <button className="text-sm font-bold text-brand-pink hover:text-brand-coral transition-colors">
-                  View all orders
-                </button>
+                <Link href="/messages" className="text-sm font-bold text-brand-pink hover:text-brand-coral transition-colors">
+                  View all messages
+                </Link>
               </div>
               <div className="overflow-x-auto">
                 <table className="min-w-full">
                   <thead className="bg-gray-50/30">
                     <tr>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Order</th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Product</th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Amount</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Customer</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Subject</th>
+                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Category</th>
                       <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Action</th>
+                      <th className="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Date</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100/50">
-                    {recentOrders.map((order) => (
-                      <tr key={order.id} className="hover:bg-white/40 transition-colors group">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-bold text-gray-900">{order.id}</div>
-                          <div className="text-xs text-gray-500">{order.customer}</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-semibold text-gray-700">{order.product}</div>
-                          <div className="text-xs text-gray-400">{order.date}</div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-bold">{order.amount}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={clsx(
-                            "px-3 py-1 inline-flex text-xs font-bold rounded-full",
-                            order.status === "Completed" ? "bg-green-100 text-green-700" : 
-                            order.status === "Processing" ? "bg-blue-100 text-blue-700" : 
-                            "bg-orange-100 text-orange-700"
-                          )}>
-                            {order.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <button className="text-gray-400 hover:text-brand-pink transition-colors">
-                            <MoreVertical className="w-5 h-5 inline" />
-                          </button>
+                    {inquiriesData.inquiries.length > 0 ? (
+                      inquiriesData.inquiries.slice(0, 4).map((inq: any) => (
+                        <tr key={inq._id} className="hover:bg-white/40 transition-colors group">
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm font-bold text-gray-900">{inq.customerName}</div>
+                            <div className="text-xs text-gray-500">{inq.customerEmail}</div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="text-sm font-semibold text-gray-700 truncate max-w-[200px]">{inq.subject}</div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-bold">{inq.category}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={clsx(
+                              "px-3 py-1 inline-flex text-xs font-bold rounded-full",
+                              inq.status === "read" ? "bg-green-100 text-green-700" : 
+                              inq.status === "unread" ? "bg-orange-100 text-orange-700" : 
+                              "bg-blue-100 text-blue-700"
+                            )}>
+                              {inq.status.charAt(0).toUpperCase() + inq.status.slice(1)}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-500">
+                            {new Date(inq.createdAt).toLocaleDateString()}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
+                          No inquiries found. When customers contact your businesses, they will appear here.
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
