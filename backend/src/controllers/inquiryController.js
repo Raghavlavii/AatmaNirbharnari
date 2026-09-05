@@ -68,3 +68,24 @@ exports.getInquiries = async (req, res) => {
     return res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
+// Get inquiries for the authenticated user's businesses
+exports.getMyInquiries = async (req, res) => {
+  try {
+    const Business = require("../../models/Business");
+    
+    // Find all businesses owned by the user
+    const myBusinesses = await Business.find({ owner: req.user._id }).select("_id");
+    const businessIds = myBusinesses.map(b => b._id);
+    
+    // Find all inquiries (messages) for these businesses
+    const inquiries = await Message.find({ businessId: { $in: businessIds } }).sort({ createdAt: -1 });
+    
+    const unreadCount = inquiries.filter(inq => inq.status === "unread").length;
+    
+    return res.status(200).json({ success: true, inquiries, unreadCount, totalInquiries: inquiries.length });
+  } catch (error) {
+    console.error("Error fetching my inquiries:", error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
